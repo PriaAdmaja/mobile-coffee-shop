@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     background: {
         backgroundColor: '#f2f2f2',
         flex: 1,
-        padding: 45,
+        padding: 25,
     },
     image: {
         width: '100%',

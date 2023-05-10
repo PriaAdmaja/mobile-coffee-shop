@@ -36,7 +36,7 @@ const Login = () => {
                 type: 'success',
                 text1: result.data.msg
             });
-            navigation.navigate('home')
+            // navigation.navigate('home')
         } catch (error) {
             Toast.show({
                 type: 'error',

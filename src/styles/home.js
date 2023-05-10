@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native'
 const style = StyleSheet.create({
     homeView : {
         flex: 1,
-        paddingHorizontal: 45,
-        paddingVertical: 30
+        padding: 25
     },
     upView: {
         flex: 1
@@ -57,12 +56,12 @@ const style = StyleSheet.create({
     },
     coverSeeMore: {
         display: 'flex',
-        flexDirection: 'row-reverse'
+        flexDirection: 'row-reverse',
+        paddingBottom: 15
     },
     seeMore : {
         color: '#6A4029',
         fontWeight: '400',
-        
     },
     cardCover: {
         display: 'flex',
@@ -77,31 +76,43 @@ const style = StyleSheet.create({
         borderRadius: 30,
         display: 'flex',
         justifyContent: 'center',
-        width: '47%',
-        height: '80%',
+        width: 156,
+        height: 212,
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 40,
+        position: 'relative'
     },
     productImage: {
         width: '70%',
         height: '70%',
         borderRadius: 30,
-        position: 'relative',
-        top: -50,
-        marginBottom: -40
+        position: 'absolute',
+        top: -40,
+        // marginBottom: -40,
+        overflow: 'hidden'
+    },
+    image: {
+        width: '100%',
+        height: '100%'
+    },
+    text: {
+        position: 'absolute',
+        bottom: 20
     },
     productName: {
         fontWeight: '900',
         fontSize: 22,
         textAlign: 'center',
-        paddingHorizontal: 20
+        paddingHorizontal: 5
     },
     price: {
         color: '#6A4029',
         fontWeight: '700',
         textAlign: 'center',
-        paddingHorizontal: 20
-    }
+        paddingHorizontal: 5,
+        paddingTop: 10
+    },
+   
 
 })
 
