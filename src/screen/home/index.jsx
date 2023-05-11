@@ -42,7 +42,9 @@ const Home = () => {
         <View style={style.homeView}>
             <View style={style.topNavbar}>
                 <Image source={require('../../assets/icons/menu.png')} />
-                <Image source={require('../../assets/icons/shopping-cart.png')} />
+                <TouchableOpacity onPressOut={() => navigation.navigate('cart')}>
+                    <Image source={require('../../assets/icons/shopping-cart.png')} />
+                </TouchableOpacity>
             </View>
             <View style={style.upView}>
                 <Text style={style.homeTitle}>A good coffee is a good day</Text>

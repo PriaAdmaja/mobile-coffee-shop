@@ -8,7 +8,7 @@ const GetStarted = () => {
     const navigation = useNavigation()
     const {token} = useSelector(state => state.userInfo)
     const openApp = () =>{
-        !token ? navigation.navigate('welcome') : navigation.navigate('home')
+        !token ? navigation.navigate('welcome') : navigation.navigate('tab')
     }
     return (
         <View style={startStyle.background}>
