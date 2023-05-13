@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { View, Image, Text } from 'react-native'
 
 
 import getStart from './GetStarted.jsx'
@@ -90,7 +91,7 @@ const StactNavigator = () => {
                         options={{
                             headerShown: false,
                         }} />
-                         <Screen
+                    <Screen
                         name='payment'
                         component={payment}
                         options={{
@@ -105,10 +106,49 @@ const StactNavigator = () => {
 const TabNavigator = () => {
     const Tab = createBottomTabNavigator()
     return (
-        <Tab.Navigator>
-            <Tab.Screen name='home' component={home} />
-            <Tab.Screen name='profile' component={profile} />
-            <Tab.Screen name='chat' component={chat} />
+        <Tab.Navigator
+            initialRouteName='tab'
+            screenOptions={{ headerShown: false, tabBarShowLabel: false, tabBarStyle:{height: 50}  }}
+        >
+            <Tab.Screen name='home' component={home} options={{
+                tabBarIcon: ({ focused }) => {
+                    return (
+                        <View style={{ alignItems: 'center', justifyContent: 'center', }}>
+                            <Image source={require('./src/assets/icons/home.png')}
+                                resizeMode='contain'
+                                style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
+                            />
+                            
+                        </View>
+                    )
+                }
+            }} />
+            <Tab.Screen name='profile' component={profile} options={{
+                tabBarIcon: ({ focused }) => {
+                    return (
+                        <View style={{ alignItems: 'center', justifyContent: 'center', }}>
+                            <Image source={require('./src/assets/icons/user.png')}
+                                resizeMode='contain'
+                                style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
+                            />
+                            
+                        </View>
+                    )
+                }
+            }}/>
+            <Tab.Screen name='chat' component={chat} options={{
+                tabBarIcon: ({ focused }) => {
+                    return (
+                        <View style={{ alignItems: 'center', justifyContent: 'center', }}>
+                            <Image source={require('./src/assets/icons/chat.png')}
+                                resizeMode='contain'
+                                style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
+                            />
+                            
+                        </View>
+                    )
+                }
+            }}/>
         </Tab.Navigator>
 
     )
