@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TextInput, Button, ScrollView, TouchableOpacity, Pressable } from 'react-native'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -41,7 +41,9 @@ const Home = () => {
     return (
         <View style={style.homeView}>
             <View style={style.topNavbar}>
-                <Image source={require('../../assets/icons/menu.png')} />
+                <TouchableOpacity >
+                    <Image source={require('../../assets/icons/menu.png')} />
+                </TouchableOpacity>
                 <TouchableOpacity onPressOut={() => navigation.navigate('cart')}>
                     <Image source={require('../../assets/icons/shopping-cart.png')} />
                 </TouchableOpacity>

@@ -31,12 +31,16 @@ const Login = () => {
             dispatch(userInfoAction.submitToken(result.data.token))
             dispatch(userInfoAction.submitAvatar(result.data.profilePict))
             dispatch(userInfoAction.submitUserId(result.data.id))
-            // console.log(result.data.msg);
+            const urlProfile = `https://backend-coffee-shop.vercel.app/users/${result.data.id}`
+            const profile = await axios.get(urlProfile)
+            dispatch(userInfoAction.submitAvatar(profile.data.pict_url))
+            dispatch(userInfoAction.submitDisplayName(profile.data.display_name))
+            dispatch(userInfoAction.submitEmail(profile.data.email))
             Toast.show({
                 type: 'success',
                 text1: result.data.msg
             });
-            // navigation.navigate('home')
+            
         } catch (error) {
             Toast.show({
                 type: 'error',

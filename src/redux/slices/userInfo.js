@@ -6,7 +6,9 @@ const userInfoSlice = createSlice({
     token: null,
     avatar: null,
     userId: null,
-    address: null
+    address: null,
+    displayName: null,
+    email: null
   },
   reducers: {
     submitToken: (prevState, action) => {
@@ -33,13 +35,27 @@ const userInfoSlice = createSlice({
         address: action.payload,
       };
     },
+    submitDisplayName: (prevState, action) => {
+      return {
+        ...prevState,
+        displayName: action.payload,
+      };
+    },
+    submitEmail: (prevState, action) => {
+      return {
+        ...prevState,
+        email: action.payload,
+      };
+    },
     clearData: (prevState) => {
       return {
         ...prevState,
         userId: null,
         token: null,
         avatar: null,
-        address: null
+        address: null,
+        displayName: null,
+        email: null
       }
     }
   }
