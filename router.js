@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { View, Image, Text } from 'react-native'
@@ -17,8 +18,10 @@ import productDetail from './src/screen/product-detail'
 import cart from './src/screen/cart'
 import checkout from './src/screen/checkout'
 import payment from './src/screen/checkout/payment.jsx'
+import Category from './src/screen/home/category.jsx'
 
-import navigationRef from './RootNavigation.js'
+import EditProfile from './src/screen/profile/editProfile.jsx'
+import SplashScreen from './src/screen/SplashScreen.jsx'
 
 const StactNavigator = () => {
     const { token } = useSelector(state => state.userInfo)
@@ -27,15 +30,21 @@ const StactNavigator = () => {
     return (
         <Navigator>
             <Screen
-                name='getStart'
-                component={getStart}
+                name='SplashScreen'
+                component={SplashScreen}
                 options={{
                     headerShown: false,
                 }}
             />
             {!token ?
                 <>
-
+                    <Screen
+                        name='getStart'
+                        component={getStart}
+                        options={{
+                            headerShown: false,
+                        }}
+                    />
                     <Screen
                         name='welcome'
                         component={welcomeScreen}
@@ -97,6 +106,12 @@ const StactNavigator = () => {
                         options={{
                             headerShown: false,
                         }} />
+                    <Screen
+                        name='category'
+                        component={Category}
+                        options={{
+                            headerShown: false,
+                        }} />
                 </>
             }
         </Navigator>
@@ -108,9 +123,9 @@ const TabNavigator = () => {
     return (
         <Tab.Navigator
             initialRouteName='tab'
-            screenOptions={{ headerShown: false, tabBarShowLabel: false, tabBarStyle:{height: 50}  }}
+            screenOptions={{ headerShown: false, tabBarShowLabel: false, tabBarStyle: { height: 50 } }}
         >
-            <Tab.Screen name='home' component={home} options={{
+            <Tab.Screen name='drawer' component={DrawerNavigator} options={{
                 tabBarIcon: ({ focused }) => {
                     return (
                         <View style={{ alignItems: 'center', justifyContent: 'center', }}>
@@ -118,7 +133,7 @@ const TabNavigator = () => {
                                 resizeMode='contain'
                                 style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
                             />
-                            
+
                         </View>
                     )
                 }
@@ -131,11 +146,11 @@ const TabNavigator = () => {
                                 resizeMode='contain'
                                 style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
                             />
-                            
+
                         </View>
                     )
                 }
-            }}/>
+            }} />
             <Tab.Screen name='chat' component={chat} options={{
                 tabBarIcon: ({ focused }) => {
                     return (
@@ -144,17 +159,42 @@ const TabNavigator = () => {
                                 resizeMode='contain'
                                 style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
                             />
-                            
+
                         </View>
                     )
                 }
-            }}/>
+            }} />
         </Tab.Navigator>
 
     )
 }
 
+const DrawerNavigator = () => {
+    const Drawer = createDrawerNavigator()
+    const { avatar, displayName, email } = useSelector(state => state.userInfo)
+    // console.log(token);
+    return (
+        <Drawer.Navigator
+            initialRouteName='drawer'
+            screenOptions={{ headerShown: false }}
+            drawerContent={() => {
+                <View style={{ height: '30%' }}>
+                    <Image />
+                </View>
+            }}
+        >
+            <Drawer.Screen name='home' component={home} />
+            <Drawer.Screen name='edit profile' component={EditProfile} />
+        </Drawer.Navigator>
+    )
+}
 
+// const RootStactScreen = () => {
+//     const RootStact = createStackNavigator()
+//     return (
+
+//     )
+// }
 
 const Router = () => {
     return (

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 const style = StyleSheet.create({
-    homeView : {
+    homeView: {
         flex: 1,
         padding: 25
     },
@@ -19,7 +19,15 @@ const style = StyleSheet.create({
     },
     homeTitle: {
         fontWeight: '900',
-        fontSize: 35
+        fontSize: 35,
+
+    },
+    titleWraper: {
+        flex: 1,
+       justifyContent: 'center'
+    },
+    upBtm: {
+        flex: 1
     },
     buttonGroup: {
         display: 'flex',
@@ -28,7 +36,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     buttonGroupCover: {
-        
+
     },
     searchBar: {
         display: 'flex',
@@ -40,7 +48,7 @@ const style = StyleSheet.create({
         paddingHorizontal: 30,
         marginTop: 8
     },
-    buttonNavActive : {
+    buttonNavActive: {
         color: '#6A4029',
         padding: 4,
         borderBottomColor: '#6A4029',
@@ -52,14 +60,14 @@ const style = StyleSheet.create({
     },
     searchIcon: {
         width: 18,
-        height:18
+        height: 18
     },
     coverSeeMore: {
         display: 'flex',
         flexDirection: 'row-reverse',
         paddingBottom: 15
     },
-    seeMore : {
+    seeMore: {
         color: '#6A4029',
         fontWeight: '400',
     },
@@ -69,7 +77,7 @@ const style = StyleSheet.create({
         gap: 30,
     },
     scrollView: {
-        height: '90%'
+        height: 50
     },
     productCard: {
         backgroundColor: '#ffffff',
@@ -112,7 +120,7 @@ const style = StyleSheet.create({
         paddingHorizontal: 5,
         paddingTop: 10
     },
-   
+
 
 })
 

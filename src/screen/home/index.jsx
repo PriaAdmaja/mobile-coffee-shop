@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, Button, ScrollView, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, Image, TextInput, TouchableWithoutFeedback, ScrollView, TouchableOpacity, Pressable } from 'react-native'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -6,7 +6,8 @@ import Loader from '../../components/Loader'
 import style from '../../styles/home'
 import { useDispatch } from 'react-redux'
 import { productIdAction } from '../../redux/slices/productId'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { categoryAction } from '../../redux/slices/category'
 
 const Home = () => {
     const [product, setProduct] = useState([])
@@ -36,12 +37,17 @@ const Home = () => {
         navigation.navigate('product-detail')
     }
 
+    const seeMore = () => {
+        dispatch(categoryAction.inputCategory(category))
+        navigation.navigate('category')
+    }
+
     if (!product) return <Loader.Loader isLoading={isLoading} />
 
     return (
         <View style={style.homeView}>
             <View style={style.topNavbar}>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
                     <Image source={require('../../assets/icons/menu.png')} />
                 </TouchableOpacity>
                 <TouchableOpacity onPressOut={() => navigation.navigate('cart')}>
@@ -49,31 +55,35 @@ const Home = () => {
                 </TouchableOpacity>
             </View>
             <View style={style.upView}>
-                <Text style={style.homeTitle}>A good coffee is a good day</Text>
-                <View style={style.searchBar}>
-                    <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
-                    <TextInput placeholder='Search' />
+                <View style={style.titleWraper}>
+                    <Text style={style.homeTitle}>A good coffee is a good day</Text>
                 </View>
-                <ScrollView horizontal={true}>
-                    <View style={style.buttonGroup}>
-                        <Text style={style.buttonNav} >Favorite</Text>
-                        <Text style={style.buttonNav} >Promo</Text>
-                        <Text style={category === 'coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('coffee')}>Coffee</Text>
-                        <Text style={category === 'non coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('non coffee')}>Non coffee</Text>
-                        <Text style={category === 'foods' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('foods')}>Foods</Text>
+                <View style={style.upBtm}>
+                    <View style={style.searchBar}>
+                        <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
+                        <TextInput placeholder='Search' />
                     </View>
-                </ScrollView>
+                    <ScrollView horizontal={true} style={style.scrollView}>
+                        <View style={style.buttonGroup}>
+                            <Text style={style.buttonNav} >Favorite</Text>
+                            <Text style={style.buttonNav} >Promo</Text>
+                            <Text style={category === 'coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('coffee')}>Coffee</Text>
+                            <Text style={category === 'non coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('non coffee')}>Non coffee</Text>
+                            <Text style={category === 'foods' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('foods')}>Foods</Text>
+                        </View>
+                    </ScrollView>
+                </View>
             </View>
             <View style={style.bottomView}>
-                <View style={style.coverSeeMore}>
+                <TouchableOpacity style={style.coverSeeMore} onPress={seeMore}>
                     <Text >See more</Text>
-                </View>
+                </TouchableOpacity>
                 {isLoading ? <Loader.Loader isLoading={isLoading} /> :
                     <ScrollView horizontal={true} style={style.scrollView}>
                         <View style={style.cardCover}>
                             {product.data?.map((data) => {
                                 return (
-                                    <TouchableOpacity style={style.productCard} key={data.id} onLongPress={() => viewDetail(data.id)}>
+                                    <TouchableOpacity style={style.productCard} key={data.id} onPress={() => viewDetail(data.id)}>
                                         <View style={style.productImage}>
                                             <Image source={{ uri: `${data.pict_url}` }} style={style.image} />
                                         </View>

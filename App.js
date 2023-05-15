@@ -5,13 +5,14 @@ import store, { persistor } from './src/redux/store';
 import Router from './router';
 
 const App = () => {
-    return (
-        <Provider store={store}>
+  return (
+      <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Router />
         </PersistGate>
       </Provider>
-    )
+    
+  )
 };
 
 export default App;
