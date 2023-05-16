@@ -19,12 +19,17 @@ import cart from './src/screen/cart'
 import checkout from './src/screen/checkout'
 import payment from './src/screen/checkout/payment.jsx'
 import Category from './src/screen/home/category.jsx'
+import EmptyCart from './src/screen/cart/empty.jsx'
+
+import CustomDrawer from './src/components/CustomDrawer.js'
 
 import EditProfile from './src/screen/profile/editProfile.jsx'
 import SplashScreen from './src/screen/SplashScreen.jsx'
 
 const StactNavigator = () => {
     const { token } = useSelector(state => state.userInfo)
+    const { cartList } = useSelector(state => state.cart)
+    console.log(cartList.length);
 
     const { Navigator, Screen } = createStackNavigator()
     return (
@@ -90,7 +95,7 @@ const StactNavigator = () => {
                         }} />
                     <Screen
                         name='cart'
-                        component={cart}
+                        component={cartList?.length ? cart : EmptyCart}
                         options={{
                             headerShown: false,
                         }} />
@@ -177,11 +182,7 @@ const DrawerNavigator = () => {
         <Drawer.Navigator
             initialRouteName='drawer'
             screenOptions={{ headerShown: false }}
-            drawerContent={() => {
-                <View style={{ height: '30%' }}>
-                    <Image />
-                </View>
-            }}
+            drawerContent={props => <CustomDrawer {...props}/>}
         >
             <Drawer.Screen name='home' component={home} />
             <Drawer.Screen name='edit profile' component={EditProfile} />

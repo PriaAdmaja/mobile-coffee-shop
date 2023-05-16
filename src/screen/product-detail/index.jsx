@@ -42,7 +42,9 @@ const ProductDetail = () => {
     return (
         <View style={style.mainView}>
             <View style={style.topNav}>
-                <Image source={require('../../assets/icons/left.png')} />
+                <TouchableOpacity  onPress={() => navigation.goBack()}>
+                    <Image source={require('../../assets/icons/left.png')} />
+                </TouchableOpacity>
                 <TouchableOpacity onPressOut={() => navigation.navigate('cart')}>
                     <Image source={require('../../assets/icons/shopping-cart.png')} />
                 </TouchableOpacity>

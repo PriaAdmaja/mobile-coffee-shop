@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import Loader from '../../components/Loader'
 import style from '../../styles/home'
+import navStyle from '../../styles/nav'
 import { useDispatch } from 'react-redux'
 import { productIdAction } from '../../redux/slices/productId'
 import { DrawerActions, useNavigation } from '@react-navigation/native'

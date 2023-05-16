@@ -6,6 +6,7 @@ const style = StyleSheet.create({
         backgroundColor: '#EBEBEB',
         padding: 25
     },
+    
     button: {
         backgroundColor: '#6A4029',
         borderRadius: 20,
@@ -17,6 +18,13 @@ const style = StyleSheet.create({
         fontWeight: '700',
         fontSize: 17,
         textAlign: 'center'
+    },
+    swipe: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 5,
+        flexDirection: 'row',
+        marginVertical: 19,
     },
     cardWrapper: {
         gap: 15

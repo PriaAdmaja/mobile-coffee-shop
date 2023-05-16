@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 
 import style from '../../styles/category'
+import navStyle from '../../styles/nav'
 import Loader from '../../components/Loader'
 import { productIdAction } from '../../redux/slices/productId'
 
@@ -38,6 +39,12 @@ const Category = () => {
     }
     return (
         <View style={style.mainView}>
+            <View style={navStyle.nav}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={navStyle.arrowWrapper}>
+                    <Image source={require('../../assets/icons/left.png')} />
+                </TouchableOpacity>
+                <Image source={require('../../assets/icons/left.png')} style={navStyle.hidden} />
+            </View>
             <Text style={style.title}>{title}</Text>
             {isLoading ? <Loader.Loader isLoading={true} />
                 : <FlatList
