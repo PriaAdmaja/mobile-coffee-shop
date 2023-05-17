@@ -29,7 +29,7 @@ import SplashScreen from './src/screen/SplashScreen.jsx'
 const StactNavigator = () => {
     const { token } = useSelector(state => state.userInfo)
     const { cartList } = useSelector(state => state.cart)
-    console.log(cartList.length);
+    
 
     const { Navigator, Screen } = createStackNavigator()
     return (
@@ -117,6 +117,12 @@ const StactNavigator = () => {
                         options={{
                             headerShown: false,
                         }} />
+                    <Screen
+                        name='Edit Profile'
+                        component={EditProfile}
+                        options={{
+                            headerShown: false,
+                        }} />
                 </>
             }
         </Navigator>
@@ -181,21 +187,35 @@ const DrawerNavigator = () => {
     return (
         <Drawer.Navigator
             initialRouteName='drawer'
-            screenOptions={{ headerShown: false }}
-            drawerContent={props => <CustomDrawer {...props}/>}
+            screenOptions={{
+                headerShown: false,
+                drawerLabelStyle: { color: '#6A4029', },
+                drawerItemStyle: { borderBottomWidth: 0.3, borderBottomColor: '#6A4029'}
+            }}
+            drawerContent={props => <CustomDrawer {...props} />}
         >
-            <Drawer.Screen name='home' component={home} />
-            <Drawer.Screen name='edit profile' component={EditProfile} />
+            <Drawer.Screen name='Home' component={home}
+                options={{
+                    drawerIcon: () => {
+                        return (
+                            <Image source={require('./src/assets/icons/home.png')} style={{ width: 22, height: 22, }} />
+                        )
+                    }
+                }}
+            />
+            <Drawer.Screen name='Edit Profile' component={EditProfile}
+                options={{
+                    drawerIcon: () => {
+                        return (
+                            <Image source={require('./src/assets/icons/Edit profile.png')} style={{ width: 22, height: 22, }} />
+                        )
+                    }
+                }}
+            />
         </Drawer.Navigator>
     )
 }
 
-// const RootStactScreen = () => {
-//     const RootStact = createStackNavigator()
-//     return (
-
-//     )
-// }
 
 const Router = () => {
     return (

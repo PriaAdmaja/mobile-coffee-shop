@@ -1,7 +1,7 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import hamburgerStyle from '../styles/hamburger'
+import hamburgerStyle from '../styles/drawer'
 
 const Hamburger = () => {
     const profile = useSelector(state => state.userInfo)

@@ -33,9 +33,12 @@ const Login = () => {
             dispatch(userInfoAction.submitUserId(result.data.id))
             const urlProfile = `https://backend-coffee-shop.vercel.app/users/${result.data.id}`
             const profile = await axios.get(urlProfile)
-            dispatch(userInfoAction.submitAvatar(profile.data.pict_url))
-            dispatch(userInfoAction.submitDisplayName(profile.data.display_name))
-            dispatch(userInfoAction.submitEmail(profile.data.email))
+            console.log(profile.data.data[0]);
+            dispatch(userInfoAction.submitAvatar(profile.data.data[0].pict_url))
+            dispatch(userInfoAction.submitDisplayName(profile.data.data[0].display_name))
+            dispatch(userInfoAction.submitEmail(profile.data.data[0].email))
+            dispatch(userInfoAction.submitAddress(profile.data.data[0].address))
+            dispatch(userInfoAction.submitPhone(profile.data.data[0].phone_number))
             Toast.show({
                 type: 'success',
                 text1: result.data.msg

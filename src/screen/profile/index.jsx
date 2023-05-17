@@ -1,5 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native"
 import { useSelector } from "react-redux"
+import { useNavigation } from "@react-navigation/native"
 
 
 import navStyle from '../../styles/nav'
@@ -8,7 +9,7 @@ import style from '../../styles/profile'
 
 const Profile = () => {
     const { userId, token, avatar, address, displayName, email, phone } = useSelector(state => state.userInfo)
-
+    const navigation = useNavigation()
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>
@@ -21,7 +22,9 @@ const Profile = () => {
             <View >
                 <View style={style.editInfoWrap}>
                     <Text style={style.subTitle}>Your Information</Text>
-                    <TouchableOpacity ><Text style={style.edit}>edit</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Edit Profile')}>
+                        <Text style={style.edit}>edit</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={style.content}>
                     <View style={style.profileWrap}>

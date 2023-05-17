@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 const Cart = () => {
     const cart = useSelector((state) => state.cart.cartList);
     const navigation = useNavigation()
-    console.log(cart);
+    // console.log(cart);
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>

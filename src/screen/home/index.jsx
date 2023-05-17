@@ -19,7 +19,7 @@ const Home = () => {
     const navigation = useNavigation()
 
     useEffect(() => {
-        console.log(category);
+        // console.log(category);
         let getData = true
         if (getData) {
             setIsLoading(true)
