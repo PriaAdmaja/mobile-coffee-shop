@@ -6,10 +6,12 @@ import Loader from "../../components/Loader";
 
 import startStyle from '../../styles/start';
 import authStyle from '../../styles/auth'
+import style from "../../styles/home";
 
 const ForgotPassword = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState()
+    const [send, setSend] = useState(false)
 
     const sendEmail = async() => {
         try {
@@ -20,7 +22,7 @@ const ForgotPassword = () => {
                 type: 'success',
                 text1: result.data.msg
             });
-
+            setSend(true)
         } catch (error) {
             Toast.show({
                 type: 'error',
@@ -36,10 +38,10 @@ const ForgotPassword = () => {
             <Text style={authStyle.startTitle}>Don't Worry!</Text>
             <Text style={startStyle.startDescription}>Enter your email adress to get reset password link</Text>
             <Image source={require('../../assets/images/forgot-password.png')} style={startStyle.image} />
-            <TextInput placeholder="Enter your email address" style={authStyle.inputText} onChangeText={text => setEmail(text)}/>
-            <Text style={authStyle.textForgot}>Haven’t received any link?</Text>
+            <TextInput placeholder="Enter your email address" style={send ? {display: 'none'} : authStyle.inputText} onChangeText={text => setEmail(text)}/>
+            <Text style={send ? authStyle.textForgot : {opacity: 0}}>Haven’t received any link?</Text> 
             <TouchableOpacity style={startStyle.buttonTouch} onPress={sendEmail}>
-                <Text style={startStyle.textButton}>Resend Link</Text>
+                <Text style={startStyle.textButton}>{send ? 'Resend Link' : 'Send Link'}</Text>
                 <Loader.ButtonLoader isLoading={isLoading} />
             </TouchableOpacity>
             <Toast

@@ -10,6 +10,7 @@ import Loader from "../../components/Loader"
 import axios from "axios"
 import { userInfoAction } from "../../redux/slices/userInfo"
 import { Toast } from "react-native-toast-message/lib/src/Toast"
+import style from "../../styles/home"
 
 const Login = () => {
     const navigation = useNavigation()
@@ -43,7 +44,7 @@ const Login = () => {
                 type: 'success',
                 text1: result.data.msg
             });
-            
+
         } catch (error) {
             Toast.show({
                 type: 'error',
@@ -61,12 +62,14 @@ const Login = () => {
             </View>
             <View style={authStyle.bottomView}>
                 <View style={authStyle.loginTextView}>
-                    <TextInput placeholder="Enter your email address" style={authStyle.inputText} onChangeText={text => setEmail(text)}/>
-                    <TextInput secureTextEntry={true} placeholder="Enter your password" style={authStyle.inputText} onChangeText={text => setPassword(text)}/>
+                    <TextInput placeholder="Enter your email address" style={authStyle.inputText} onChangeText={text => setEmail(text)} />
+                    <TextInput secureTextEntry={true} placeholder="Enter your password" style={authStyle.inputText} onChangeText={text => setPassword(text)} />
                     <Text style={authStyle.forgotPass} onPress={() => navigation.navigate('forgot')}>Forgot Password?</Text>
                 </View>
-
-                <TouchableOpacity style={startStyle.buttonTouch} onPressOut={loginAccount}>
+                <View style={email && password ? {display: 'none'} : authStyle.fakeButton}>
+                    <Text style={authStyle.fakeTextButton}>Login</Text>
+                </View>
+                <TouchableOpacity style={email && password ? startStyle.buttonTouch : {display: 'none'}} onPressOut={loginAccount}>
                     <Text style={startStyle.textButton}>Login</Text>
                     <Loader.ButtonLoader isLoading={isLoading} />
                 </TouchableOpacity>

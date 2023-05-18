@@ -59,7 +59,7 @@ const Category = () => {
                                 </View>
                                 <View style={style.text}>
                                     <Text style={style.productName}>{item.name}</Text>
-                                    <Text style={style.price}>IDR {item.price}</Text>
+                                    <Text style={style.price}>IDR {Number(item.price).toLocaleString()}</Text>
                                 </View>
                             </TouchableOpacity>
                         )

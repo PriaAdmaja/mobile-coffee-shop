@@ -90,7 +90,7 @@ const Home = () => {
                                         </View>
                                         <View style={style.text}>
                                             <Text style={style.productName}>{data.name}</Text>
-                                            <Text style={style.price}>IDR {data.price}</Text>
+                                            <Text style={style.price}>IDR {Number(data.price).toLocaleString()}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 )

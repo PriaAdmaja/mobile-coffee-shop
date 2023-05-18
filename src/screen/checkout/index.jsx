@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import style from '../../styles/checkout'
+import navStyle from '../../styles/nav'
 import { useNavigation } from '@react-navigation/native'
 
 import { userInfoAction } from '../../redux/slices/userInfo'
@@ -13,7 +13,6 @@ const Checkout = () => {
     const [editable, setEditable] = useState(false)
     const { address, phone } = useSelector((state) => state.userInfo);
     const { deliveryId } = useSelector(state => state.deliveryStatus)
-    console.log(address);
 
     const navigation = useNavigation()
     const dispatch = useDispatch()
@@ -23,6 +22,12 @@ const Checkout = () => {
     }
     return (
         <View style={style.mainView}>
+            <View style={navStyle.nav}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={navStyle.arrowWrapper}>
+                    <Image source={require('../../assets/icons/left.png')} />
+                </TouchableOpacity>
+                <Image source={require('../../assets/icons/left.png')} style={navStyle.hidden} />
+            </View>
             <Text style={style.mainTitle}>Delivery</Text>
             <View style={style.container}>
                 <View style={style.subCont}>

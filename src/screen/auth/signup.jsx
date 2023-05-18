@@ -48,7 +48,10 @@ const SignUp = () => {
                     <TextInput placeholder="Enter your password" secureTextEntry={true} style={authStyle.inputText} onChangeText={(text) => setPassword(text)} />
                     <TextInput placeholder="Enter your phone number" keyboardType="numeric" style={authStyle.inputText} onChangeText={(text) => setPhoneNumber(text)} />
                 </View>
-                <TouchableOpacity style={authStyle.signupBtn} onPressOut={register}>
+                <View style={email && password && phoneNumber ? {display: 'none'} : authStyle.fakeButton}>
+                    <Text style={authStyle.fakeTextButton}>Create Account</Text>
+                </View>
+                <TouchableOpacity style={email && password && phoneNumber ? authStyle.signupBtn : {display: 'none'}} onPressOut={register}>
                     <Text style={startStyle.textButton}>Create Account</Text>
                     <Loader.ButtonLoader isLoading={isLoading} />
                 </TouchableOpacity>

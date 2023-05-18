@@ -14,7 +14,6 @@ const History = () => {
     const [history, setHistory] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const { userId } = useSelector(state => state.userInfo)
-
     const navigation = useNavigation()
 
     useEffect(() => {

@@ -95,6 +95,24 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center'
     },
+    fakeButton : {
+        backgroundColor: '#ffffff',
+        borderWidth: 1,
+        borderColor: '#9F9F9F',
+        borderRadius: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 5
+    },
+    fakeTextButton : {
+        color: '#000000',
+        fontWeight: '700',
+        fontSize: 17,
+        textAlign: 'center',
+        paddingVertical: 22
+    }
 })
 
 export default styles
