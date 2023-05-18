@@ -10,7 +10,7 @@ const style = StyleSheet.create({
         fontWeight: '900',
         fontSize: 34,
         color: '#000000',
-        paddingVertical: 30
+        paddingVertical: 10
     },
     swipe: {
         justifyContent: 'center',
@@ -19,6 +19,49 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         marginVertical: 19,
     },
+    card: {
+        borderRadius: 20,
+        backgroundColor: '#ffffff',
+        paddingVertical: 11,
+        paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        gap: 17
+    },
+    image: {
+        width: 70,
+        height: 70,
+        borderRadius: 35
+    },
+    menuName : {
+        fontSize: 17,
+        fontWeight: '700',
+        color: '#000000'
+    },
+    total : {
+        fontSize: 15,
+        fontWeight: '400',
+        color: '#895537'
+    },
+    desc : {
+        fontSize: 10,
+        fontWeight: '400',
+        color: '#895537'
+    },
+    deleteBtn : {
+        backgroundColor: '#895537',
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    deleteWrap: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 23
+    }
 })
 
 export default style

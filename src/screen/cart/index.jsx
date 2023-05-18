@@ -22,7 +22,6 @@ const Cart = () => {
             </View>
         )
     }
-    console.log(cart);
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>
@@ -68,31 +67,6 @@ const Cart = () => {
                         )
                     }}
                 />
-
-                {/* <ScrollView style={style.scroll}>
-                    <View style={style.cardWrapper}>
-                        {cart.map((data, i) => {
-                            return (
-                                <View key={i}>
-                                    <View style={style.cartCard}>
-                                        <Image source={{ uri: `${data.pict}` }} style={style.imageCard} />
-                                        <View style={style.descCard}>
-                                            <Text style={style.titleCard}>{data.name}</Text>
-                                            <View style={style.detailCard}>
-                                                <Text>IDR {data.price}</Text>
-                                                <View style={style.qtyBtn}>
-                                                    <TouchableOpacity><Text style={style.qtyText}>-</Text></TouchableOpacity>
-                                                    <Text style={style.qtyText}>{data.qty}</Text>
-                                                    <TouchableOpacity><Text style={style.qtyText}>+</Text></TouchableOpacity>
-                                                </View>
-                                            </View>
-                                        </View>
-                                    </View>
-                                </View>
-                            )
-                        })}
-                    </View>
-                </ScrollView> */}
                 <TouchableOpacity style={style.button} onPressOut={() => navigation.navigate('checkout')}>
                     <Text style={style.textButton}>
                         Confirm and Checkout
