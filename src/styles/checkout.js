@@ -60,6 +60,7 @@ const style = StyleSheet.create({
         height: 10,
         backgroundColor: '#9F9F9F',
         borderRadius: 5,
+        display: 'none'
     },
     dotActive: {
         width: 10,
@@ -94,7 +95,21 @@ const style = StyleSheet.create({
         fontWeight: '400',
         fontSize: 17,
         color: '#000000'
-    }
+    },
+    fakeButton: {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#9F9F9F',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingVertical: 22,
+        position: 'relative',
+    },
+    fakeTextButton : {
+        color: '#000000',
+        fontWeight: '700',
+        fontSize: 17,
+        textAlign: 'center'
+    },
     
 
 })

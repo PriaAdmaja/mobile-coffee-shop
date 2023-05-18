@@ -23,7 +23,6 @@ const Logout = () => {
                         <Text>Logout</Text>
                     </TouchableOpacity>
                 </View>
-
             </Modal>
         </View>
     )

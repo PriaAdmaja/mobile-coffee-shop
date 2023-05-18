@@ -3,9 +3,11 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Toast } from "react-native-toast-message/lib/src/Toast"
+import axios from 'axios';
 
 import style from '../../styles/payment'
 import navStyle from '../../styles/nav'
+import Loader from '../../components/Loader';
 
 const Payment = () => {
     const [paymentId, setPaymentId] = useState()
@@ -13,6 +15,8 @@ const Payment = () => {
     const cart = useSelector(state => state.cart.cartList)
     const navigation = useNavigation()
     const { deliveryId } = useSelector(state => state.deliveryStatus)
+    const {address, token, userId} = useSelector(state => state.userInfo)
+    const dispatch = useDispatch()
 
     let subTotal = cart.map(data => Math.floor(data.price * data.qty)).reduce((a, b) => (a + b), 0);
     let tax = Math.floor(10 / 100 * subTotal);
@@ -27,15 +31,17 @@ const Payment = () => {
         try {
             setIsLoading(true)
             const body = {
+                userId,
                 promoId: null,
                 paymentId,
                 deliveryId,
                 notes: 'null',
+                address,
                 grandTotal: total,
-                address: address,
                 products: cart.map(selectedData)
             }
-            const url = `https://backend-coffee-shop.vercel.app/transaction`
+            console.log(body);
+            const url = `https://backend-coffee-shop.vercel.app/transactions`
             const result = await axios.post(url, body, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -49,10 +55,11 @@ const Payment = () => {
             dispatch(deliveryAction.removeDelivery())
 
         } catch (error) {
-            Toast.show({
-                type: 'error',
-                text1: error.response.data.msg
-            })
+            console.log(error.response.data);
+            // Toast.show({
+            //     type: 'error',
+            //     text1: 'error.response.data.msg'
+            // })
         } finally {
             setIsLoading(false)
         }

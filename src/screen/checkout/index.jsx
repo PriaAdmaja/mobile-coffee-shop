@@ -12,7 +12,7 @@ import { deliveryStatusAction } from '../../redux/slices/deliveryStatus'
 const Checkout = () => {
     const [editable, setEditable] = useState(false)
     const { address, phone } = useSelector((state) => state.userInfo);
-    const { deliveryId} = useSelector(state => state.deliveryStatus)
+    const { deliveryId } = useSelector(state => state.deliveryStatus)
     console.log(address);
 
     const navigation = useNavigation()
@@ -73,7 +73,10 @@ const Checkout = () => {
                     </View>
                 </View>
             </View>
-            <TouchableOpacity style={style.button} onPressOut={goPayment}>
+            <View style={ deliveryId && address && phone ? {display: 'none'} : style.fakeButton}>
+                    <Text style={style.fakeTextButton}>Proceed to Payment</Text>
+                </View>
+            <TouchableOpacity style={  deliveryId && address && phone ? style.button : {display: 'none'}} onPressOut={goPayment}>
                 <Text style={style.textButton}>Proceed to Payment</Text>
             </TouchableOpacity>
         </View>

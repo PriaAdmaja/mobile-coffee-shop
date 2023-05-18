@@ -18,10 +18,12 @@ const CustomDrawer = (props) => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            console.log(result)
-            dispatch(userInfoAction.clearData())
+           
+            
         } catch (error) {
             console.log(error.response)
+        } finally {
+            dispatch(userInfoAction.clearData())
         }
     }
 
