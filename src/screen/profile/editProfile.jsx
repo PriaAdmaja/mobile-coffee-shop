@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Touchable } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Modal } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
@@ -16,6 +16,7 @@ const EditProfile = () => {
     const [profile, setProfile] = useState()
     const [dateModal, setDateModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [showModal, setShowModal] = useState(false)
     const [image, setImage] = useState('')
     const { userId, token } = useSelector(state => state.userInfo)
     const navigation = useNavigation()
@@ -31,12 +32,28 @@ const EditProfile = () => {
         setProfile(newProfile)
     }
 
+    const openCamera = async () => {
+        const options = {
+            mediaType: 'photo',
+            quality: 1
+        }
+        await launchCamera(options, res => {
+            if (res.didCancel) {
+                return console.log('Cancel get picture');
+            }
+            if (res.errorCode) {
+                return console.log('Error get picture');
+            }
+            setImage(res.assets[0])
+        })
+        setShowModal(false)
+    }
+
     const imagePicker = async () => {
         const options = {
             mediaType: 'photo',
             quality: 1
         }
-
         await launchImageLibrary(options, res => {
             if (res.didCancel) {
                 return console.log('Cancel get picture');
@@ -46,22 +63,27 @@ const EditProfile = () => {
             }
             setImage(res.assets[0])
         })
+        setShowModal(false)
     }
 
     const updateProfile = async () => {
         try {
             setIsLoading(true)
             const formData = new FormData()
-            // if (image) {
-            // }
-            formData.append('image', image)
-            // formData.append('displayName', profile.display_name)
-            // formData.append('firstName', profile.first_name)
-            // formData.append('lastName', profile.last_name)
-            // formData.append('birthDate', String(profile.birth_date).split('').slice(0, 10).join(''))
-            // formData.append('gender', profile.gender)
-            // formData.append('address', profile.address)
-            console.log(formData);
+            if (image) {
+                formData.append('image', {
+                    name: image.fileName,
+                    type: image.type,
+                    uri: Platform.OS === 'android' ? image.uri : image.uri.replace('file://', '')
+                })
+            }
+
+            formData.append('displayName', profile.display_name)
+            formData.append('firstName', profile.first_name)
+            formData.append('lastName', profile.last_name)
+            formData.append('birthDate', String(profile.birth_date).split('').slice(0, 10).join(''))
+            formData.append('gender', profile.gender)
+            formData.append('address', profile.address)
             // const body = {
             //     image: image ? image : profile.pictUrl,
             //     displayName: profile.display_name,
@@ -78,27 +100,26 @@ const EditProfile = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            // console.log(result.data?.data[0]);
+            console.log(result.data?.data[0]);
             Toast.show({
                 type: 'success',
                 text1: result.data.msg
             });
-            // dispatch(userInfoAction.submitAvatar(result.data?.data[0].pict_url))
-            // dispatch(userInfoAction.submitDisplayName(result.data?.data[0].display_name))
-            // dispatch(userInfoAction.submitEmail(result.data?.data[0].email))
-            // dispatch(userInfoAction.submitAddress(result.data?.data[0].address))
+            dispatch(userInfoAction.submitAvatar(result.data?.data[0].pict_url))
+            dispatch(userInfoAction.submitDisplayName(result.data?.data[0].display_name))
+            dispatch(userInfoAction.submitEmail(result.data?.data[0].email))
+            dispatch(userInfoAction.submitAddress(result.data?.data[0].address))
         } catch (error) {
-            console.log(error);
-            // Toast.show({
-            //     type: 'error',
-            //     text1: error
-
-            // })
+            console.log(error.response.data.msg);
+            Toast.show({
+                type: 'error',
+                text1: error.response.data.msg
+            })
         } finally {
             setIsLoading(false)
         }
     }
-    console.log(profile);
+
 
     if (profile === undefined) return <Loader.Loader isLoading={true} />
     return (
@@ -113,7 +134,7 @@ const EditProfile = () => {
             <View style={style.mainImageWrapper}>
                 <View style={style.imageWrapper}>
                     <Image style={style.avatar} source={image ? { uri: image.uri } : profile.pict_url ? { uri: `${profile.pict_url}` } : require('../../assets/images/default-avatar.jpg')} />
-                    <TouchableOpacity style={style.penWrap} onPress={imagePicker}>
+                    <TouchableOpacity style={style.penWrap} onPress={() => setShowModal(true)}>
                         <Image source={require('../../assets/icons/pen.png')} />
                     </TouchableOpacity>
                 </View>
@@ -163,11 +184,11 @@ const EditProfile = () => {
                 </View>
                 <View style={style.inputWrap}>
                     <Text style={style.text}>Email Address :</Text>
-                    <TextInput style={style.input} value={profile.email} onChangeText={(text) => changeData('email', text)} />
+                    <TextInput style={style.input} editable={false} value={profile.email} onChangeText={(text) => changeData('email', text)} />
                 </View>
                 <View style={style.inputWrap}>
                     <Text style={style.text}>Phone Number :</Text>
-                    <TextInput style={style.input} value={profile.phone_number} onChangeText={(text) => changeData('phone_number', text)} />
+                    <TextInput style={style.input} editable={false} value={profile.phone_number} onChangeText={(text) => changeData('phone_number', text)} />
                 </View>
                 <View style={style.inputWrap}>
                     <Text style={style.text}>Date of Birth :</Text>
@@ -196,6 +217,21 @@ const EditProfile = () => {
                 {isLoading ? <Loader.ButtonLoader isLoading={isLoading} /> :
                     <Text style={style.saveText}>Save and Update</Text>}
             </TouchableOpacity>
+            <Modal animationType='fade' visible={showModal} transparent={true}>
+                <View style={style.centeredView}>
+                    <View style={style.modal}>
+                        <TouchableOpacity style={style.imageBtn} onPress={openCamera}>
+                            <Text style={style.imageText}>Take a Camera</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={style.imageBtn} onPress={imagePicker}>
+                            <Text style={style.imageText}>Open Gallery</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={style.saveBtn} onPress={() => setShowModal(false)}>
+                            <Text style={style.saveText}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
             <Toast
                 position='top'
                 bottomOffset={20}

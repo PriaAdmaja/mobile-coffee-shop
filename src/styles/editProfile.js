@@ -49,6 +49,17 @@ const style = StyleSheet.create({
         borderRadius: 20,
         padding: 22
     },
+    imageBtn :{
+        backgroundColor: '#FFBA33',
+        borderRadius: 20,
+        padding: 22
+    },
+    imageText: {
+        color: '#000000',
+        fontWeight: '900',
+        fontSize: 17,
+        textAlign: "center"
+    },
     saveText: {
         color: '#ffffff',
         fontWeight: '900',
@@ -107,6 +118,19 @@ const style = StyleSheet.create({
         fontSize: 13,
         fontWeight: '700',
         color: '#000000'
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(52, 52, 52, 0.5)',
+    },
+    modal: {
+        width: '80%',
+        padding: 20,
+        backgroundColor: '#ffffff',
+        borderRadius: 20,
+        gap: 10
     }
 })
 
