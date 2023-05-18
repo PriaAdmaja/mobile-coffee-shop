@@ -20,6 +20,7 @@ import checkout from './src/screen/checkout'
 import payment from './src/screen/checkout/payment.jsx'
 import Category from './src/screen/home/category.jsx'
 import EmptyCart from './src/screen/cart/empty.jsx'
+import History from './src/screen/history/index.jsx'
 
 import CustomDrawer from './src/components/CustomDrawer.js'
 
@@ -120,6 +121,12 @@ const StactNavigator = () => {
                     <Screen
                         name='Edit Profile'
                         component={EditProfile}
+                        options={{
+                            headerShown: false,
+                        }} />
+                         <Screen
+                        name='History'
+                        component={History}
                         options={{
                             headerShown: false,
                         }} />

@@ -79,6 +79,20 @@ const style = StyleSheet.create({
     },
     content: {
         flex: 1
+    },
+    delete: {
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: '#FFBA33',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    swipeCOntent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 24
     }
 })
 

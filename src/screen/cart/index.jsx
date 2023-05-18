@@ -1,14 +1,28 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { Swipeable } from 'react-native-gesture-handler'
+import { useDispatch } from 'react-redux'
 
 import style from '../../styles/cart'
 import navStyle from '../../styles/nav'
 import { useSelector } from 'react-redux'
+import { cartAction } from '../../redux/slices/cart'
 
 const Cart = () => {
     const cart = useSelector((state) => state.cart.cartList);
     const navigation = useNavigation()
-    // console.log(cart);
+    const dispatch = useDispatch()
+
+    const swipeRight = (idx) => {
+        return (
+            <View style={style.swipeCOntent}>
+                <TouchableOpacity style={style.delete} onPress={() => dispatch(cartAction.deleteCart(idx))}>
+                    <Image source={require('../../assets/icons/delete.png')} style={{ width: 14, height: 16 }} />
+                </TouchableOpacity>
+            </View>
+        )
+    }
+    console.log(cart);
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>
@@ -23,30 +37,38 @@ const Cart = () => {
                     <Image source={require('../../assets/icons/iwwa_swipe.png')} />
                     <Text>Swipe on item to delete</Text>
                 </View>
+
                 <FlatList
                     data={cart}
-                    ItemSeparatorComponent={() => <View style={{height: 10}}/>}
-                    renderItem={({ item }) => {
+                    ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+                    renderItem={({ item, index }) => {
                         return (
-                            <View >
+                            <Swipeable
+                                renderRightActions={() => swipeRight(index)}
+                            >
                                 <View style={style.cartCard}>
                                     <Image source={{ uri: `${item.pict}` }} style={style.imageCard} />
                                     <View style={style.descCard}>
                                         <Text style={style.titleCard}>{item.name}</Text>
                                         <View style={style.detailCard}>
-                                            <Text>IDR {item.price}</Text>
+                                            <Text>IDR {Number(item.price).toLocaleString()}</Text>
                                             <View style={style.qtyBtn}>
-                                                <TouchableOpacity><Text style={style.qtyText}>-</Text></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => dispatch(cartAction.subQuantity(index))}>
+                                                    <Text style={style.qtyText}>-</Text>
+                                                </TouchableOpacity>
                                                 <Text style={style.qtyText}>{item.qty}</Text>
-                                                <TouchableOpacity><Text style={style.qtyText}>+</Text></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => dispatch(cartAction.addQuantity(index))}>
+                                                    <Text style={style.qtyText}>+</Text>
+                                                </TouchableOpacity>
                                             </View>
                                         </View>
                                     </View>
                                 </View>
-                            </View>
+                            </Swipeable>
                         )
                     }}
                 />
+
                 {/* <ScrollView style={style.scroll}>
                     <View style={style.cardWrapper}>
                         {cart.map((data, i) => {

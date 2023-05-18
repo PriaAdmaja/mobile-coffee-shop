@@ -36,7 +36,7 @@ const Profile = () => {
                             <Text style={style.text}>{address}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={style.navigate}>
+                    <TouchableOpacity style={style.navigate} onPress={() => navigation.navigate('History')}>
                         <Text style={style.subTitle}>Order History</Text>
                         <Image source={require('../../assets/icons/right.png')} />
                     </TouchableOpacity >

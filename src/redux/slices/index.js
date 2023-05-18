@@ -11,8 +11,8 @@ import productIdSlice from './productId'
 
 const reducers = combineReducers({
     counter: counterSlice,
-    userInfo: userInfoSlice,
     cart: cartSlice,
+    userInfo: userInfoSlice,
     activePromo: activePromoSlice,
     deliveryStatus: deliveryStatusSlice,
     category: categorySlice,

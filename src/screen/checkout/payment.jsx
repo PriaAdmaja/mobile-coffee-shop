@@ -8,6 +8,8 @@ import axios from 'axios';
 import style from '../../styles/payment'
 import navStyle from '../../styles/nav'
 import Loader from '../../components/Loader';
+import { createAction } from '@reduxjs/toolkit';
+import { cartAction } from '../../redux/slices/cart';
 
 const Payment = () => {
     const [paymentId, setPaymentId] = useState()
@@ -15,7 +17,7 @@ const Payment = () => {
     const cart = useSelector(state => state.cart.cartList)
     const navigation = useNavigation()
     const { deliveryId } = useSelector(state => state.deliveryStatus)
-    const {address, token, userId} = useSelector(state => state.userInfo)
+    const { address, token, userId } = useSelector(state => state.userInfo)
     const dispatch = useDispatch()
 
     let subTotal = cart.map(data => Math.floor(data.price * data.qty)).reduce((a, b) => (a + b), 0);
@@ -51,9 +53,9 @@ const Payment = () => {
                 type: 'success',
                 text1: result.data.msg
             });
-            dispatch(cartAction.clearCart());
             dispatch(deliveryAction.removeDelivery())
-
+            dispatch(cartAction.clearCart())
+            navigation.navigate('History')
         } catch (error) {
             console.log(error.response.data);
             // Toast.show({
@@ -141,10 +143,10 @@ const Payment = () => {
                     <Text style={style.total}>Total</Text>
                     <Text style={style.total}>IDR {total.toLocaleString()}</Text>
                 </View>
-                <View style={ paymentId? {display: 'none'} : style.fakeButton}>
+                <View style={paymentId ? { display: 'none' } : style.fakeButton}>
                     <Text style={style.fakeTextButton}>Proceed to Payment</Text>
                 </View>
-                <TouchableOpacity style={paymentId? style.button : {display: 'none'}} onPressOut={proceedPayment}>
+                <TouchableOpacity style={paymentId ? style.button : { display: 'none' }} onPressOut={proceedPayment}>
                     {isLoading ? <Loader.ButtonLoader isLoading={isLoading} />
                         : <Text style={style.textButton}>Proceed to Payment</Text>}
                 </TouchableOpacity>
