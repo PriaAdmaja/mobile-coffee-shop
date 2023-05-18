@@ -54,7 +54,48 @@ const style = StyleSheet.create({
         borderBottomWidth: 0.5,
         overflow: 'scroll',
         width: '100%'
+    },
+    dotInactive: {
+        width: 10,
+        height: 10,
+        backgroundColor: '#9F9F9F',
+        borderRadius: 5,
+    },
+    dotActive: {
+        width: 10,
+        height: 10,
+        backgroundColor: '#6A4029',
+        borderRadius: 5,
+    },
+    outDotInactive: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#9F9F9F',
+        borderWidth: 1
+    },
+    outDotActive: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#6A4029',
+        borderWidth: 1
+    },
+    choiceWrap: {
+        flexDirection: 'row',
+        gap: 16,
+        paddingVertical: 10
+    },
+    deliveryText: {
+        fontWeight: '400',
+        fontSize: 17,
+        color: '#000000'
     }
+    
 
 })
 

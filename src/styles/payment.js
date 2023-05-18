@@ -12,7 +12,8 @@ const style = StyleSheet.create({
         paddingHorizontal: 30,
         paddingVertical: 25,
         alignItems: 'flex-start',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        gap: 10
     },
     addressNav: {
         flexDirection: 'row',
@@ -71,12 +72,92 @@ const style = StyleSheet.create({
         paddingVertical: 22,
         position: 'relative',
     },
+    fakeButton: {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#9F9F9F',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingVertical: 22,
+        position: 'relative',
+    },
+    fakeTextButton : {
+        color: '#000000',
+        fontWeight: '700',
+        fontSize: 17,
+        textAlign: 'center'
+    },
     textButton: {
         color: '#ffffff',
         fontWeight: '700',
         fontSize: 17,
         textAlign: 'center'
     },
+    dotInactive: {
+        width: 10,
+        height: 10,
+        backgroundColor: '#9F9F9F',
+        borderRadius: 5,
+        display: 'none'
+    },
+    dotActive: {
+        width: 10,
+        height: 10,
+        backgroundColor: '#6A4029',
+        borderRadius: 5,
+    },
+    outDotInactive: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#9F9F9F',
+        borderWidth: 1
+    },
+    outDotActive: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#6A4029',
+        borderWidth: 1
+    },
+    iconCardCover: {
+        width: 40,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#F47B0A',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    iconBankCover: {
+        width: 40,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#895537',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    iconCODCover: {
+        width: 40,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#FFBA33',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    paymentText: {
+        fontWeight: '400',
+        fontSize: 17,
+        color: '#000000'
+    },
+    choosePayment : {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: 15
+    }
 
 })
 

@@ -1,71 +1,24 @@
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { RadioGroup } from 'react-native-radio-buttons-group'
 
 import style from '../../styles/checkout'
 import { useNavigation } from '@react-navigation/native'
-import { deliveryAction } from '../../redux/slices/delivery'
+
 import { userInfoAction } from '../../redux/slices/userInfo'
 import { deliveryStatusAction } from '../../redux/slices/deliveryStatus'
 
 const Checkout = () => {
-    const {delivery} = useSelector(state => state.delivery)
-    const [profile, setProfile] = useState()
     const [editable, setEditable] = useState(false)
-    const [selectedId, setSelectedId] = useState(delivery || null)
-    const { userId } = useSelector((state) => state.userInfo);
+    const { address, phone } = useSelector((state) => state.userInfo);
+    const { deliveryId} = useSelector(state => state.deliveryStatus)
+    console.log(address);
 
     const navigation = useNavigation()
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const url = `https://backend-coffee-shop.vercel.app/users/${userId}`
-        axios.get(url).then(res => setProfile(res.data.data[0])).catch(err => console.log(err))
-    }, [userId])
-
-    const changeAddress = (text) => {
-        setProfile(prev => ({
-            ...prev,
-            address: text
-        }))
-    }
-
-    const changePhone = (text) => {
-        setProfile(prev => ({
-            ...prev,
-            phone_number: text
-        }))
-    }
-
-    const radioButton = useMemo(() => ([
-        {
-            id: 1,
-            label: 'Door delivery',
-            value: 1,
-            size: 17,
-            color: '#6A4029'
-        },
-        {
-            id: 2,
-            label: 'Pict up at store',
-            value: 2,
-            size: 17,
-            color: '#6A4029'
-        },
-        {
-            id: 3,
-            label: 'Dine in',
-            value: 3,
-            size: 17,
-            color: '#6A4029'
-        },
-    ]),[])
-
     const goPayment = () => {
-        dispatch(deliveryStatusAction.submitDeliveryId(selectedId))
-        dispatch(userInfoAction.submitAddress(profile?.address))
         navigation.navigate('payment')
     }
     return (
@@ -78,8 +31,8 @@ const Checkout = () => {
                         <Text onPress={() => editable === true ? setEditable(false) : setEditable(true)}>change</Text>
                     </View>
                     <View style={style.contentCont}>
-                        <TextInput editable={editable} selectTextOnFocus={editable} multiline={true} numberOfLines={3} value={profile?.address} style={style.textAddress} onChangeText={text => changeAddress(text)} />
-                        <TextInput editable={editable} selectTextOnFocus={editable} value={profile?.phone_number} onChangeText={text => changePhone(text)} />
+                        <TextInput editable={editable} selectTextOnFocus={editable} multiline={true} numberOfLines={3} value={address} style={style.textAddress} onChangeText={text => dispatch(userInfoAction.submitAddress(text))} />
+                        <TextInput editable={editable} selectTextOnFocus={editable} value={phone} onChangeText={text => dispatch(userInfoAction.submitPhone(text))} />
                     </View>
                 </View>
                 <View style={style.subCont}>
@@ -87,18 +40,42 @@ const Checkout = () => {
                         <Text style={style.subTitle}>Delivery method</Text>
                     </View>
                     <View style={style.contentCont}>
-                        <RadioGroup
-                            radioButtons={radioButton}
-                            onPress={setSelectedId}
-                            selectedId={selectedId}
-                        />
+                        <TouchableOpacity style={style.choiceWrap} onPress={() => dispatch(deliveryStatusAction.submitDeliveryId(1))}>
+                            <View
+                                style={ deliveryId === 1 ? style.outDotActive : style.outDotInactive}>
+                                <View style={ deliveryId === 1 ? style.dotActive : style.dotInactive}>
+                                </View>
+                            </View>
+                            <Text style={style.deliveryText}>
+                                Door delivery
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity  style={style.choiceWrap} onPress={() => dispatch(deliveryStatusAction.submitDeliveryId(2))}>
+                            <View
+                                style={deliveryId === 2 ? style.outDotActive : style.outDotInactive}>
+                                <View style={ deliveryId === 2 ? style.dotActive : style.dotInactive}>
+                                </View>
+                            </View>
+                            <Text style={style.deliveryText}>
+                                Pict up at store
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity  style={style.choiceWrap} onPress={() => dispatch(deliveryStatusAction.submitDeliveryId(3))}>
+                            <View
+                                style={deliveryId === 3 ? style.outDotActive : style.outDotInactive}>
+                                <View style={deliveryId === 3 ? style.dotActive : style.dotInactive}>
+                                </View>
+                            </View>
+                            <Text style={style.deliveryText}>
+                                Dine in
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
             <TouchableOpacity style={style.button} onPressOut={goPayment}>
                 <Text style={style.textButton}>Proceed to Payment</Text>
             </TouchableOpacity>
-
         </View>
     )
 }

@@ -1,47 +1,18 @@
-import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { useState, useMemo } from 'react'
-import { RadioGroup } from 'react-native-radio-buttons-group'
-import axios from 'axios'
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { Toast } from "react-native-toast-message/lib/src/Toast"
 
 import style from '../../styles/payment'
-import Login from '../auth/login'
-import { Toast } from "react-native-toast-message/lib/src/Toast"
-import Loader from '../../components/Loader'
-import { deliveryAction } from '../../redux/slices/delivery'
+import navStyle from '../../styles/nav'
 
 const Payment = () => {
-    const [selectedId, setSelectedId] = useState()
+    const [paymentId, setPaymentId] = useState()
     const [isLoading, setIsLoading] = useState(false)
-    const cart = useSelector((state) => state.cart.cartList);
-
-    const {deliveryId} = useSelector(state => state.deliveryStatus)
-    const { address, token } = useSelector(state => state.userInfo)
-    const dispatch = useDispatch()
-
-    const radioButton = useMemo(() => ([
-        {
-            id: 1,
-            label: 'Card',
-            value: 1,
-            size: 17,
-            color: '#6A4029'
-        },
-        {
-            id: 2,
-            label: 'Bank account',
-            value: 2,
-            size: 17,
-            color: '#6A4029'
-        },
-        {
-            id: 3,
-            label: 'Cash on delivery',
-            value: 3,
-            size: 17,
-            color: '#6A4029'
-        },
-    ]), [])
+    const cart = useSelector(state => state.cart.cartList)
+    const navigation = useNavigation()
+    const { deliveryId } = useSelector(state => state.deliveryStatus)
 
     let subTotal = cart.map(data => Math.floor(data.price * data.qty)).reduce((a, b) => (a + b), 0);
     let tax = Math.floor(10 / 100 * subTotal);
@@ -49,15 +20,15 @@ const Payment = () => {
     let total = Math.floor(subTotal + tax + shipping)
 
     const selectedData = (show) => {
-        const { productId, sizeId, quantity, price } = show;
-        return { productId, sizeId, quantity, price }
+        const { productId, sizeId, qty, price } = show;
+        return { productId, sizeId, quantity: qty, price }
     }
-    const proceedPayment = async() => {
+    const proceedPayment = async () => {
         try {
             setIsLoading(true)
             const body = {
                 promoId: null,
-                paymentId: selectedId,
+                paymentId,
                 deliveryId,
                 notes: 'null',
                 grandTotal: total,
@@ -75,7 +46,7 @@ const Payment = () => {
                 text1: result.data.msg
             });
             dispatch(cartAction.clearCart());
-            dispatch(deliveryAction.removeDelivery)
+            dispatch(deliveryAction.removeDelivery())
 
         } catch (error) {
             Toast.show({
@@ -88,63 +59,93 @@ const Payment = () => {
     }
     return (
         <View style={style.mainView}>
-            <ScrollView >
+            <View style={navStyle.nav}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={navStyle.arrowWrapper}>
+                    <Image source={require('../../assets/icons/left.png')} />
+                </TouchableOpacity>
+                <Text style={navStyle.navText}>Payment</Text>
+                <Image source={require('../../assets/icons/left.png')} style={navStyle.hidden} />
+            </View>
+            <ScrollView>
                 <View style={style.subCont}>
-                    <View style={style.addressNav}>
-                        <Text style={style.subTitle}>Products</Text>
-                    </View>
+                    <Text style={style.subTitle}>Products</Text>
                     <View style={style.contentCont}>
-                        <View style={style.cartCont}>
-                            {cart.map((data, i) => {
-                                return (
-                                    <View key={i} >
-                                        <View style={style.cart}>
-                                            <Image source={{ uri: `${data.pict}` }} style={style.image} />
-                                            <View style={style.cartContent}>
-                                                <Text>{data.name}</Text>
-                                                <View style={style.cartDetail}>
-                                                    <Text>x {data.qty}</Text>
-                                                    <Text>IDR {data.price}</Text>
-                                                </View>
+                        {cart.map((data, i) => {
+                            return (
+                                <View key={i} >
+                                    <View style={style.cart}>
+                                        <Image source={{ uri: `${data.pict}` }} style={style.image} />
+                                        <View style={style.cartContent}>
+                                            <Text>{data.name}</Text>
+                                            <View style={style.cartDetail}>
+                                                <Text>x {data.qty}</Text>
+                                                <Text>IDR {Number(data.price).toLocaleString()}</Text>
                                             </View>
                                         </View>
                                     </View>
-                                )
-                            })}
-                        </View>
+                                </View>
+                            )
+                        })}
                     </View>
                 </View>
                 <View style={style.subCont}>
-                    <View style={style.addressNav}>
-                        <Text style={style.subTitle}>Payment Method</Text>
-                    </View>
+                    <Text style={style.subTitle}>Payment Methods</Text>
                     <View style={style.contentCont}>
-                        <RadioGroup
-                            radioButtons={radioButton}
-                            onPress={setSelectedId}
-                            selectedId={selectedId}
-                        />
+                        <TouchableOpacity style={style.choosePayment} onPress={() => setPaymentId(1)}>
+                            <View
+                                style={paymentId === 1 ? style.outDotActive : style.outDotInactive}>
+                                <View style={paymentId === 1 ? style.dotActive : style.dotInactive}>
+                                </View>
+                            </View>
+                            <View style={style.iconCardCover}>
+                                <Image source={require('../../assets/icons/card.png')} style={{ width: 16, height: 12 }} />
+                            </View>
+                            <Text style={style.paymentText}>Card</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={style.choosePayment} onPress={() => setPaymentId(2)}>
+                            <View
+                                style={paymentId === 2 ? style.outDotActive : style.outDotInactive}>
+                                <View style={paymentId === 2 ? style.dotActive : style.dotInactive}>
+                                </View>
+                            </View>
+                            <View style={style.iconBankCover}>
+                                <Image source={require('../../assets/icons/bank.png')} style={{ width: 14, height: 16 }} />
+                            </View>
+                            <Text style={style.paymentText}>Bank account</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={style.choosePayment} onPress={() => setPaymentId(3)}>
+                            <View
+                                style={paymentId === 3 ? style.outDotActive : style.outDotInactive}>
+                                <View style={paymentId === 3 ? style.dotActive : style.dotInactive}>
+                                </View>
+                            </View>
+                            <View style={style.iconCODCover}>
+                                <Image source={require('../../assets/icons/deliv.png')} style={{ width: 24, height: 21 }} />
+                            </View>
+                            <Text style={style.paymentText}>Cash on Delivery</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={style.subCont}>
-                    <View style={style.addressNav}>
-                        <Text style={style.subTitle}>My Card</Text>
-                    </View>
-                    <View>
-                        <Image source={require('../../assets/images/bricard.png')} style={style.bankCard} />
-                    </View>
+                    <Text style={style.subTitle}>My Card</Text>
+                    <Image source={require('../../assets/images/bricard.png')} style={style.bankCard} />
                 </View>
                 <View style={style.totalWraper}>
                     <Text style={style.total}>Total</Text>
-                    <Text style={style.total}>IDR {total}</Text>
+                    <Text style={style.total}>IDR {total.toLocaleString()}</Text>
                 </View>
-                <TouchableOpacity style={style.button} onPressOut={proceedPayment}>
-                    {isLoading ?  <Loader.ButtonLoader isLoading={isLoading} /> 
-                    : <Text style={style.textButton}>Proceed to Payment</Text>}
-                   
+                <View style={ paymentId? {display: 'none'} : style.fakeButton}>
+                    <Text style={style.fakeTextButton}>Proceed to Payment</Text>
+                </View>
+                <TouchableOpacity style={paymentId? style.button : {display: 'none'}} onPressOut={proceedPayment}>
+                    {isLoading ? <Loader.ButtonLoader isLoading={isLoading} />
+                        : <Text style={style.textButton}>Proceed to Payment</Text>}
                 </TouchableOpacity>
             </ScrollView>
-
+            <Toast
+                position='top'
+                bottomOffset={20}
+            />
         </View>
     )
 }

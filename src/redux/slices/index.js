@@ -7,7 +7,7 @@ import activePromoSlice from "./activePromo";
 import deliveryStatusSlice from "./deliveryStatus";
 import categorySlice from './category'
 import productIdSlice from './productId'
-import deliverySlice from './delivery'
+
 
 const reducers = combineReducers({
     counter: counterSlice,
@@ -17,7 +17,6 @@ const reducers = combineReducers({
     deliveryStatus: deliveryStatusSlice,
     category: categorySlice,
     productId: productIdSlice,
-    delivery: deliverySlice
    
 });
 

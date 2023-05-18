@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import style from '../../styles/logout'
 
 const Logout = () => {
-
+    
     return (
         <View style={style.mainView}>
             <Modal
