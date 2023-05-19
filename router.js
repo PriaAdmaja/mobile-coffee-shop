@@ -214,7 +214,7 @@ const DrawerNavigator = () => {
                 options={{
                     drawerIcon: () => {
                         return (
-                            <Image source={require('./src/assets/icons/Edit profile.png')} style={{ width: 22, height: 22, }} />
+                            <Image source={require('./src/assets/icons/edit-profile.png')} style={{ width: 22, height: 22, }} />
                         )
                     }
                 }}

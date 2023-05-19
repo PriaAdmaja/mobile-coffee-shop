@@ -1,6 +1,7 @@
-import { View, Text, Image, TextInput, TouchableWithoutFeedback, ScrollView, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, Image, TextInput,  ScrollView, TouchableOpacity, Pressable } from 'react-native'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import Loader from '../../components/Loader'
 import style from '../../styles/home'
@@ -9,17 +10,19 @@ import { useDispatch } from 'react-redux'
 import { productIdAction } from '../../redux/slices/productId'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { categoryAction } from '../../redux/slices/category'
+import useDebounce from '../../utils/useDebounce'
 
 const Home = () => {
     const [product, setProduct] = useState([])
     const [category, setCategory] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [menuName, setMenuName] = useState('')
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
+    const debouncedSearch = useDebounce(menuName, 2000)
 
     useEffect(() => {
-        // console.log(category);
         let getData = true
         if (getData) {
             setIsLoading(true)
@@ -32,6 +35,26 @@ const Home = () => {
         }
         return () => { getData = false }
     }, [category])
+
+    useEffect(() => {
+        let getData = true
+        if (getData) {
+            setIsLoading(true)
+
+            let url = `https://backend-coffee-shop.vercel.app/products?name=${debouncedSearch}&limit=5`
+            if (category) {
+                url = `https://backend-coffee-shop.vercel.app/products?name=${debouncedSearch}&category=${category}&limit=5`
+            }
+            axios.get(url).then(res => setProduct(res.data))
+            .catch(err =>  
+                Toast.show({
+                type: 'error',
+                text1: err.response.data.msg
+            }))
+            .finally(() => setIsLoading(false))
+        }
+        return () => { getData = false }
+    }, [debouncedSearch])
 
     const viewDetail = (id) => {
         dispatch(productIdAction.inputProductId(id))
@@ -62,7 +85,7 @@ const Home = () => {
                 <View style={style.upBtm}>
                     <View style={style.searchBar}>
                         <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
-                        <TextInput placeholder='Search' />
+                        <TextInput placeholder='Search' onChangeText={text => setMenuName(text)}/>
                     </View>
                     <ScrollView horizontal={true} style={style.scrollView}>
                         <View style={style.buttonGroup}>
@@ -99,6 +122,10 @@ const Home = () => {
                     </ScrollView>
                 }
             </View>
+            <Toast
+                position='top'
+                bottomOffset={20}
+            />
         </View>
     )
 }
