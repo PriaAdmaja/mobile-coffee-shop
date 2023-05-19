@@ -32,9 +32,10 @@ const Login = () => {
             dispatch(userInfoAction.submitToken(result.data.token))
             dispatch(userInfoAction.submitAvatar(result.data.profilePict))
             dispatch(userInfoAction.submitUserId(result.data.id))
+            dispatch(userInfoAction.submitRolesId(result.data.roles_id))
             const urlProfile = `https://backend-coffee-shop.vercel.app/users/${result.data.id}`
             const profile = await axios.get(urlProfile)
-            console.log(profile.data.data[0]);
+            
             dispatch(userInfoAction.submitAvatar(profile.data.data[0].pict_url))
             dispatch(userInfoAction.submitDisplayName(profile.data.data[0].display_name))
             dispatch(userInfoAction.submitEmail(profile.data.data[0].email))

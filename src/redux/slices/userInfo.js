@@ -9,13 +9,20 @@ const userInfoSlice = createSlice({
     address: null,
     displayName: null,
     email: null,
-    phone: null
+    phone: null,
+    rolesId: null
   },
   reducers: {
     submitToken: (prevState, action) => {
       return {
         ...prevState,
         token: action.payload,
+      };
+    },
+    submitRolesId: (prevState, action) => {
+      return {
+        ...prevState,
+        rolesId: action.payload,
       };
     },
     submitAvatar: (prevState, action) => {
@@ -62,7 +69,8 @@ const userInfoSlice = createSlice({
         avatar: null,
         address: null,
         displayName: null,
-        email: null
+        email: null,
+        rolesId: null,
       }
     }
   }

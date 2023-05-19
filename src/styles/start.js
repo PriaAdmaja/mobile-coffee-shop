@@ -2,15 +2,16 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     startTitle: {
-        fontSize: 50,
+        fontSize: 65,
         color: 'black',
-        fontFamily: 'Poppins-Medium',
-        fontWeight: '700'
+        fontWeight: '700',
+        fontFamily: 'Poppins-Medium'
     },
     startDescription: {
         fontSize: 17,
         textAlign: 'center',
-        fontWeight: '400'
+        fontWeight: '400',
+        fontFamily: 'Poppins-Medium'
     },
     background: {
         backgroundColor: '#f2f2f2',
