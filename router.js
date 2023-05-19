@@ -21,6 +21,7 @@ import payment from './src/screen/checkout/payment.jsx'
 import Category from './src/screen/home/category.jsx'
 import EmptyCart from './src/screen/cart/empty.jsx'
 import History from './src/screen/history/index.jsx'
+import AddProduct from './src/screen/product-detail/addProduct.jsx'
 
 import CustomDrawer from './src/components/CustomDrawer.js'
 
@@ -30,7 +31,7 @@ import SplashScreen from './src/screen/SplashScreen.jsx'
 const StactNavigator = () => {
     const { token } = useSelector(state => state.userInfo)
     const { cartList } = useSelector(state => state.cart)
-    
+
 
     const { Navigator, Screen } = createStackNavigator()
     return (
@@ -124,9 +125,15 @@ const StactNavigator = () => {
                         options={{
                             headerShown: false,
                         }} />
-                         <Screen
+                    <Screen
                         name='History'
                         component={History}
+                        options={{
+                            headerShown: false,
+                        }} />
+                    <Screen
+                        name='Add Product'
+                        component={AddProduct}
                         options={{
                             headerShown: false,
                         }} />
@@ -197,7 +204,7 @@ const DrawerNavigator = () => {
             screenOptions={{
                 headerShown: false,
                 drawerLabelStyle: { color: '#6A4029', },
-                drawerItemStyle: { borderBottomWidth: 0.3, borderBottomColor: '#6A4029'}
+                drawerItemStyle: { borderBottomWidth: 0.3, borderBottomColor: '#6A4029' }
             }}
             drawerContent={props => <CustomDrawer {...props} />}
         >

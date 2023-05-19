@@ -1,30 +1,65 @@
 import { View, Text, Modal, TouchableOpacity } from 'react-native'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
 
 import style from '../../styles/logout'
+import Loader from '../../components/Loader'
+import { userInfoAction } from '../../redux/slices/userInfo'
 
-const Logout = () => {
-    
+const Logout = ({ show, hideModal }) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const { userId, token } = useSelector(state => state.userInfo)
+    const dispatch = useDispatch()
+
+
+    const logout = async () => {
+        try {
+            setIsLoading(true)
+            const urlVerify = `https://backend-coffee-shop.vercel.app/auth/verify`
+            await axios.get(urlVerify, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const url = `https://backend-coffee-shop.vercel.app/auth/logout`
+            await axios.post(url, { userId }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        } catch (error) {
+            console.log(error.response.data.msg)
+        } finally {
+            dispatch(userInfoAction.clearData())
+            setIsLoading(false)
+            hideModal(false)
+        }
+    }
+
     return (
-        <View style={style.mainView}>
-            <Modal
-                visible={false}
-                animationType='fade'
-                transparent={true}
-                style={style.logoutModal}
-            >
-                <Text style={style.text}>Are you sure to logout?</Text>
-                <View style={style.buttonWrapper}>
-                    <TouchableOpacity style={style.cancel}>
-                        <Text>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={style.logout}>
-                        <Text>Logout</Text>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
-        </View>
+        <Modal
+            visible={show}
+            animationType='fade'
+            transparent={true}
+        >
+            <View style={style.centeredView}>
+                {isLoading ? <Loader.Loader isLoading={isLoading} /> :
+                    <View style={style.modal}>
+                        <Text style={style.text}>Are you sure to sign-out?</Text>
+                        <View style={style.buttonWrapper}>
+                            <TouchableOpacity style={style.cancel} onPress={() => hideModal(false)}>
+                                <Text style={style.cancelText}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={style.logout} onPress={logout}>
+                                <Text style={style.logoutText}>Sign-out</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                }
+            </View>
+        </Modal>
+
     )
 }
 

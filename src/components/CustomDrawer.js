@@ -1,30 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
+import {useState} from 'react'
 
 import style from '../styles/drawer'
-import { userInfoAction } from '../redux/slices/userInfo'
+import Logout from '../screen/auth/logout'
 
 const CustomDrawer = (props) => {
-    const { avatar, email, displayName, token, userId } = useSelector(state => state.userInfo)
-    const dispatch = useDispatch()
+    const [showModal, setShowModal] = useState(false)
+    const { avatar, email, displayName } = useSelector(state => state.userInfo)
 
-    const logout = async () => {
-        try {
-            const url = `https://backend-coffee-shop.vercel.app/auth/logout`
-            const result = await axios.post(url, { userId }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-           
-            
-        } catch (error) {
-            console.log(error.response)
-        } finally {
-            dispatch(userInfoAction.clearData())
-        }
+    const hideModal = (data) => {
+        setShowModal(data)
     }
 
     return (
@@ -37,8 +24,9 @@ const CustomDrawer = (props) => {
                 </View>
                 <DrawerItemList {...props} />
             </DrawerContentScrollView>
+            <Logout show={showModal} hideModal={hideModal}/>
             <View style={style.logout}>
-                <TouchableOpacity onPress={logout}>
+                <TouchableOpacity onPress={() => setShowModal(true)}>
                     <Text style={style.logoutText}>Sign-out</Text>
                 </TouchableOpacity>
             </View>

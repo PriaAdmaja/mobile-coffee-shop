@@ -96,7 +96,6 @@ const style = StyleSheet.create({
         borderRadius: 30,
         position: 'absolute',
         top: -40,
-        // marginBottom: -40,
         overflow: 'hidden'
     },
     image: {
@@ -119,6 +118,18 @@ const style = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: 5,
         paddingTop: 10
+    },
+    button: {
+        backgroundColor: '#6A4029',
+        borderRadius: 20,
+        paddingVertical: 22,
+        position: 'relative',
+    },
+    textButton: {
+        color: '#ffffff',
+        fontWeight: '700',
+        fontSize: 17,
+        textAlign: 'center'
     },
 
 

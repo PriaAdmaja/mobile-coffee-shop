@@ -1,12 +1,11 @@
-import { View, Text, Image, TextInput,  ScrollView, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, Image, TextInput, ScrollView, TouchableOpacity, Pressable } from 'react-native'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import Loader from '../../components/Loader'
 import style from '../../styles/home'
-import navStyle from '../../styles/nav'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { productIdAction } from '../../redux/slices/productId'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { categoryAction } from '../../redux/slices/category'
@@ -19,6 +18,7 @@ const Home = () => {
     const [menuName, setMenuName] = useState('')
 
     const dispatch = useDispatch()
+    const { rolesId } = useSelector(state => state.userInfo)
     const navigation = useNavigation()
     const debouncedSearch = useDebounce(menuName, 2000)
 
@@ -46,12 +46,12 @@ const Home = () => {
                 url = `https://backend-coffee-shop.vercel.app/products?name=${debouncedSearch}&category=${category}&limit=5`
             }
             axios.get(url).then(res => setProduct(res.data))
-            .catch(err =>  
-                Toast.show({
-                type: 'error',
-                text1: err.response.data.msg
-            }))
-            .finally(() => setIsLoading(false))
+                .catch(err =>
+                    Toast.show({
+                        type: 'error',
+                        text1: err.response.data.msg
+                    }))
+                .finally(() => setIsLoading(false))
         }
         return () => { getData = false }
     }, [debouncedSearch])
@@ -85,7 +85,7 @@ const Home = () => {
                 <View style={style.upBtm}>
                     <View style={style.searchBar}>
                         <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
-                        <TextInput placeholder='Search' onChangeText={text => setMenuName(text)}/>
+                        <TextInput placeholder='Search' onChangeText={text => setMenuName(text)} />
                     </View>
                     <ScrollView horizontal={true} style={style.scrollView}>
                         <View style={style.buttonGroup}>
@@ -121,7 +121,11 @@ const Home = () => {
                         </View>
                     </ScrollView>
                 }
+
             </View>
+            <TouchableOpacity style={rolesId === '2' ? {display: 'none'} : style.button} onPress={() => navigation.navigate('Add Product')}>
+                <Text style={style.textButton}>Add Product</Text>
+            </TouchableOpacity>
             <Toast
                 position='top'
                 bottomOffset={20}
