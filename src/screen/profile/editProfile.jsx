@@ -84,15 +84,6 @@ const EditProfile = () => {
             formData.append('birthDate', String(profile.birth_date).split('').slice(0, 10).join(''))
             formData.append('gender', profile.gender)
             formData.append('address', profile.address)
-            // const body = {
-            //     image: image ? image : profile.pictUrl,
-            //     displayName: profile.display_name,
-            //     firstName: profile.first_name,
-            //     lastName: profile.last_name,
-            //     birthDate: String(profile.birth_date).split('').slice(0, 10).join(''),
-            //     gender: profile.gender,
-            //     address: profile.address
-            // }
             const url = `https://backend-coffee-shop.vercel.app/users/${userId}`
             const result = await axios.patch(url, formData, {
                 headers: {
@@ -100,7 +91,7 @@ const EditProfile = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            console.log(result.data?.data[0]);
+            
             Toast.show({
                 type: 'success',
                 text1: result.data.msg
@@ -110,7 +101,7 @@ const EditProfile = () => {
             dispatch(userInfoAction.submitEmail(result.data?.data[0].email))
             dispatch(userInfoAction.submitAddress(result.data?.data[0].address))
         } catch (error) {
-            console.log(error.response.data.msg);
+            
             Toast.show({
                 type: 'error',
                 text1: error.response.data.msg

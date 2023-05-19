@@ -56,6 +56,91 @@ const style = StyleSheet.create({
         paddingHorizontal: 5,
         // paddingTop: 10
     },
+    filterBtn : {
+        backgroundColor: '#efefef',
+        paddingHorizontal: 20,
+        paddingVertical: 7,
+        width: 120,
+        borderWidth: 1,
+        borderColor: '#1a1a1a',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    filterBtnActive: {
+        backgroundColor: '#bbbbbb',
+        paddingHorizontal: 20,
+        paddingVertical: 7,
+        width: 120,
+        borderWidth: 1,
+        borderColor: '#1a1a1a',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    filterText: {
+        fontSize: 15,
+        fontWeight: '600'
+    },
+    modalView: {
+        backgroundColor: '#ffffff',
+        padding: 25,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        marginTop: 'auto',
+        position: 'relative'
+    },
+    filterWrap: {
+        flexDirection: 'row',
+        gap: 15,
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        marginBottom: 20
+    },
+    modalSubtitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        paddingBottom: 10
+    },
+    selectFilterBtn: {
+        backgroundColor: '#FFBA33',
+        borderRadius: 20,
+        padding: 22
+    },
+    selectFilterText : {
+        color: '#000000',
+        fontWeight: '900',
+        fontSize: 17,
+        textAlign: "center"
+    },
+    cancelText: {
+        color: '#ffffff',
+        fontWeight: '900',
+        fontSize: 17,
+        textAlign: "center"
+    },
+    cancelBtn : {
+        backgroundColor: '#6A4029',
+        borderRadius: 20,
+        padding: 22,
+        marginTop: 20
+    },
+    modalCLose: {
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 20,
+        right: 15,
+        backgroundColor: '#6A4029',
+        borderRadius: 5
+    },
+    textClose : {
+        color: '#ffffff'
+    }
 })
 
 export default style

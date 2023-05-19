@@ -5,7 +5,7 @@ import userInfoSlice from "./userInfo";
 import cartSlice from "./cart";
 import activePromoSlice from "./activePromo";
 import deliveryStatusSlice from "./deliveryStatus";
-import categorySlice from './category'
+import filterSlice from "./filter";
 import productIdSlice from './productId'
 
 
@@ -15,7 +15,7 @@ const reducers = combineReducers({
     userInfo: userInfoSlice,
     activePromo: activePromoSlice,
     deliveryStatus: deliveryStatusSlice,
-    category: categorySlice,
+    filter: filterSlice,
     productId: productIdSlice,
    
 });

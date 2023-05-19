@@ -1,9 +1,15 @@
 import { View, Text, TouchableOpacity, Image, TextInput, Modal, ScrollView } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import { useState } from 'react'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useNavigation } from '@react-navigation/native'
 
 import style from '../../styles/addProduct'
 import navStyle from '../../styles/nav'
+import Loader from '../../components/Loader'
+
 
 const AddProduct = () => {
     const [showModal, setShowModal] = useState(false);
@@ -12,6 +18,9 @@ const AddProduct = () => {
     const [price, setPrice] = useState();
     const [description, setDescription] = useState();
     const [categoryId, setCategoryId] = useState()
+    const [isLoading, setIsLoading] = useState(false)
+    const {token} = useSelector(state => state.userInfo)
+    const navigation = useNavigation()
 
     const openCamera = async () => {
         const options = {
@@ -45,6 +54,45 @@ const AddProduct = () => {
             setImage(res.assets[0])
         })
         setShowModal(false)
+    }
+
+    const sendProductData = async() => {
+        try {
+            setIsLoading(true)
+            const formData = new FormData()
+            if (image) {
+                formData.append('image', {
+                    name: image.fileName,
+                    type: image.type,
+                    uri: Platform.OS === 'android' ? image.uri : image.uri.replace('file://', '')
+                })
+            }
+            formData.append('productName', name)
+            formData.append('price', Number(price))
+            formData.append('description', description)
+            formData.append('categoryId', categoryId)
+            console.log(formData);
+            const url = `https://backend-coffee-shop.vercel.app/products`
+            const result = await axios.post(url, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            Toast.show({
+                type: 'success',
+                text1: result.data.msg
+            });
+            navigation.navigate('tab')
+        } catch (error) {
+            
+            Toast.show({
+                type: 'error',
+                text1: error.response.data.msg
+            })
+        } finally {
+            setIsLoading(false)
+        }
     }
     return (
         <View style={style.mainView}>
@@ -99,7 +147,10 @@ const AddProduct = () => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={style.button}>
+                <View style={name && price && description && categoryId ? {display: 'none'} : style.fakeButton}>
+                    <Text style={style.fakeTextButton}>Save Product</Text>
+                </View>
+                <TouchableOpacity style={name && price && description && categoryId ? style.button : {display: 'none'}} onPress={sendProductData}>
                     <Text style={style.textButton}>Save Product</Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -118,6 +169,11 @@ const AddProduct = () => {
                     </View>
                 </View>
             </Modal>
+            <Toast
+                position='top'
+                bottomOffset={20}
+            />
+            <Loader.Loader isLoading={isLoading} />
         </View>
     )
 }

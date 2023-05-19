@@ -8,7 +8,7 @@ import style from '../../styles/home'
 import { useDispatch, useSelector } from 'react-redux'
 import { productIdAction } from '../../redux/slices/productId'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { categoryAction } from '../../redux/slices/category'
+import { filterAction } from '../../redux/slices/filter'
 import useDebounce from '../../utils/useDebounce'
 
 const Home = () => {
@@ -62,7 +62,7 @@ const Home = () => {
     }
 
     const seeMore = () => {
-        dispatch(categoryAction.inputCategory(category))
+        dispatch(filterAction.inputCategory(category))
         navigation.navigate('category')
     }
 
