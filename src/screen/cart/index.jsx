@@ -34,7 +34,7 @@ const Cart = () => {
             <View style={style.content}>
                 <View style={style.swipe}>
                     <Image source={require('../../assets/icons/iwwa_swipe.png')} />
-                    <Text>Swipe on item to delete</Text>
+                    <Text style={{color: '#000000'}}>Swipe on item to delete</Text>
                 </View>
 
                 <FlatList
@@ -50,7 +50,7 @@ const Cart = () => {
                                     <View style={style.descCard}>
                                         <Text style={style.titleCard}>{item.name}</Text>
                                         <View style={style.detailCard}>
-                                            <Text>IDR {Number(item.price).toLocaleString()}</Text>
+                                            <Text style={{color: '#000000'}}>IDR {Number(item.price).toLocaleString()}</Text>
                                             <View style={style.qtyBtn}>
                                                 <TouchableOpacity onPress={() => dispatch(cartAction.subQuantity(index))}>
                                                     <Text style={style.qtyText}>-</Text>

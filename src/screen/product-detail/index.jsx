@@ -53,7 +53,7 @@ const ProductDetail = () => {
             <View style={style.topView}>
                 <Image source={{ uri: `${data?.pict_url}` }} style={style.image} />
                 <Text style={style.title}>{data?.name}</Text>
-                <Text style={style.price}>IDR {data?.price}</Text>
+                <Text style={style.price}>IDR {Number(data?.price).toLocaleString()}</Text>
             </View>
             <View style={style.bottomView}>
                 <View>

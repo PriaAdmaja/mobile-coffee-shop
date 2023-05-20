@@ -33,7 +33,7 @@ const Checkout = () => {
                 <View style={style.subCont}>
                     <View style={style.addressNav}>
                         <Text style={style.subTitle}>Address detail</Text>
-                        <Text onPress={() => editable === true ? setEditable(false) : setEditable(true)}>change</Text>
+                        <Text onPress={() => editable === true ? setEditable(false) : setEditable(true)} style={{color: '#000000'}}>change</Text>
                     </View>
                     <View style={style.contentCont}>
                         <TextInput editable={editable} selectTextOnFocus={editable} multiline={true} numberOfLines={3} value={address} style={style.textAddress} onChangeText={text => dispatch(userInfoAction.submitAddress(text))} />

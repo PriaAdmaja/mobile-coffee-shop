@@ -9,7 +9,8 @@ const style = StyleSheet.create({
     },
     navText : {
         fontWeight: '700',
-        fontSize: 18
+        fontSize: 18,
+        color: '#000000'
     },
     hidden: {
         opacity: 0

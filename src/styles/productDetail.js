@@ -22,7 +22,8 @@ const style = StyleSheet.create({
     title: {
         fontWeight: '900',
         fontSize: 35,
-        paddingTop: 10
+        paddingTop: 10,
+        color: '#000000'
     },
     price: {
         fontWeight: '700',
@@ -42,7 +43,8 @@ const style = StyleSheet.create({
     },
     desc: {
         fontSize: 15,
-        textAlign: 'justify'
+        textAlign: 'justify',
+        color: '#000000'
     },
     button: {
         backgroundColor: '#6A4029',

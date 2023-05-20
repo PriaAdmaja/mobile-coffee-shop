@@ -10,7 +10,7 @@ const style = StyleSheet.create({
         color: '#000000',
         fontWeight: '900',
         fontSize: 34,
-        paddingBottom: 35
+        paddingBottom: 20
     },
     subTitle: {
         fontWeight: '700',

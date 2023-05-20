@@ -9,7 +9,6 @@ import { API_URL} from '@env'
 import style from '../../styles/payment'
 import navStyle from '../../styles/nav'
 import Loader from '../../components/Loader';
-import { createAction } from '@reduxjs/toolkit';
 import { cartAction } from '../../redux/slices/cart';
 
 const Payment = () => {
@@ -86,10 +85,10 @@ const Payment = () => {
                                     <View style={style.cart}>
                                         <Image source={{ uri: `${data.pict}` }} style={style.image} />
                                         <View style={style.cartContent}>
-                                            <Text>{data.name}</Text>
+                                            <Text style={{color: '#000000'}}>{data.name}</Text>
                                             <View style={style.cartDetail}>
-                                                <Text>x {data.qty}</Text>
-                                                <Text>IDR {Number(data.price).toLocaleString()}</Text>
+                                                <Text style={{color: '#000000'}}>x {data.qty}</Text>
+                                                <Text style={{color: '#000000'}}>IDR {Number(data.price).toLocaleString()}</Text>
                                             </View>
                                         </View>
                                     </View>

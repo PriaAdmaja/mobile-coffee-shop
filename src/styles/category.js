@@ -14,7 +14,8 @@ const style = StyleSheet.create({
         fontSize: 28,
         fontWeight: '700',
         textAlign: 'center',
-        paddingBottom: 16
+        paddingBottom: 16,
+        color: '#000000'
     },
     productCard: {
         backgroundColor: '#ffffff',
@@ -41,13 +42,15 @@ const style = StyleSheet.create({
     },
     text: {
         position: 'absolute',
-        bottom: 10
+        bottom: 10,
+        color: '#000000'
     },
     productName: {
         fontWeight: '900',
         fontSize: 20,
         textAlign: 'center',
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
+        color: '#000000'
     },
     price: {
         color: '#6A4029',
@@ -82,7 +85,8 @@ const style = StyleSheet.create({
     },
     filterText: {
         fontSize: 15,
-        fontWeight: '600'
+        fontWeight: '600',
+        color: '#000000'
     },
     modalView: {
         backgroundColor: '#ffffff',
@@ -102,7 +106,8 @@ const style = StyleSheet.create({
     modalSubtitle: {
         fontSize: 18,
         fontWeight: '700',
-        paddingBottom: 10
+        paddingBottom: 10,
+        color: '#000000'
     },
     selectFilterBtn: {
         backgroundColor: '#FFBA33',
