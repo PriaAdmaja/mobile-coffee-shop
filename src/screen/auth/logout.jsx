@@ -2,6 +2,7 @@ import { View, Text, Modal, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
+import { API_URL } from '@env'
 
 import style from '../../styles/logout'
 import Loader from '../../components/Loader'
@@ -16,13 +17,13 @@ const Logout = ({ show, hideModal }) => {
     const logout = async () => {
         try {
             setIsLoading(true)
-            const urlVerify = `https://backend-coffee-shop.vercel.app/auth/verify`
+            const urlVerify = `${API_URL}/auth/verify`
             await axios.get(urlVerify, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const url = `https://backend-coffee-shop.vercel.app/auth/logout`
+            const url = `${API_URL}/auth/logout`
             await axios.post(url, { userId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`

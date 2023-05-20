@@ -17,7 +17,8 @@ const style = StyleSheet.create({
     },
     subTitle: {
         fontWeight: '700',
-        fontSize: 18
+        fontSize: 18,
+        color: '#000000'
     },
     editInfoWrap: {
         flexDirection: 'row',

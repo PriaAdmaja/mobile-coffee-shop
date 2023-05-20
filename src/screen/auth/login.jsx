@@ -1,6 +1,7 @@
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { useDispatch } from "react-redux"
+import { API_URL} from '@env'
 
 import startStyle from '../../styles/start'
 import authStyle from '../../styles/auth'
@@ -10,7 +11,7 @@ import Loader from "../../components/Loader"
 import axios from "axios"
 import { userInfoAction } from "../../redux/slices/userInfo"
 import { Toast } from "react-native-toast-message/lib/src/Toast"
-import style from "../../styles/home"
+
 
 const Login = () => {
     const navigation = useNavigation()
@@ -27,13 +28,13 @@ const Login = () => {
                 email,
                 password
             }
-            const url = `https://backend-coffee-shop.vercel.app/auth/login`;
+            const url = `${API_URL}/auth/login`;
             const result = await axios.post(url, body)
             dispatch(userInfoAction.submitToken(result.data.token))
             dispatch(userInfoAction.submitAvatar(result.data.profilePict))
             dispatch(userInfoAction.submitUserId(result.data.id))
             dispatch(userInfoAction.submitRolesId(result.data.roles_id))
-            const urlProfile = `https://backend-coffee-shop.vercel.app/users/${result.data.id}`
+            const urlProfile = `${API_URL}/users/${result.data.id}`
             const profile = await axios.get(urlProfile)
             
             dispatch(userInfoAction.submitAvatar(profile.data.data[0].pict_url))

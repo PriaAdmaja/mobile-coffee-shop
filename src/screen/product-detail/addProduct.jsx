@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useNavigation } from '@react-navigation/native'
+import { API_URL} from '@env'
 
 import style from '../../styles/addProduct'
 import navStyle from '../../styles/nav'
@@ -72,7 +73,7 @@ const AddProduct = () => {
             formData.append('description', description)
             formData.append('categoryId', categoryId)
             console.log(formData);
-            const url = `https://backend-coffee-shop.vercel.app/products`
+            const url = `${API_URL}/products`
             const result = await axios.post(url, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,

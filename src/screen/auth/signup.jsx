@@ -1,4 +1,5 @@
 import { Image, Text, TouchableOpacity, View, TextInput } from "react-native"
+import { API_URL} from '@env'
 
 import startStyle from '../../styles/start'
 import authStyle from '../../styles/auth'
@@ -21,7 +22,7 @@ const SignUp = () => {
                 password,
                 phoneNumber
             }
-            const url = `https://backend-coffee-shop.vercel.app/auth/register`;
+            const url = `${API_URL}/auth/register`;
             const result = await axios.post(url, body)
             Toast.show({
                 type: 'success',

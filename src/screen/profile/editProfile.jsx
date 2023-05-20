@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-native-date-picker'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import { API_URL} from '@env'
 
 import style from '../../styles/editProfile'
 import navStyle from '../../styles/nav'
@@ -23,7 +24,7 @@ const EditProfile = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const url = `https://backend-coffee-shop.vercel.app/users/${userId}`;
+        const url = `${API_URL}/users/${userId}`;
         axios.get(url).then(res => setProfile(res.data.data[0])).catch(err => console.log(err))
     }, [])
 
@@ -84,7 +85,7 @@ const EditProfile = () => {
             formData.append('birthDate', String(profile.birth_date).split('').slice(0, 10).join(''))
             formData.append('gender', profile.gender)
             formData.append('address', profile.address)
-            const url = `https://backend-coffee-shop.vercel.app/users/${userId}`
+            const url = `${API_URL}/users/${userId}`
             const result = await axios.patch(url, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { Toast } from "react-native-toast-message/lib/src/Toast"
+import { API_URL} from '@env'
 
 import style from '../../styles/history'
 import navStyle from '../../styles/nav'
@@ -20,7 +21,7 @@ const History = () => {
         let getData = true
         if (getData) {
             setIsLoading(true)
-            const url = `https://backend-coffee-shop.vercel.app/history/${userId}`
+            const url = `${API_URL}/history/${userId}`
             axios.get(url).then(res => setHistory(res.data.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))
         }
         return () => {getData = false}
@@ -29,9 +30,9 @@ const History = () => {
     const deleteHistory = async (transactionId) => {
         try {
             setIsLoading(true)
-            const url = `https://backend-coffee-shop.vercel.app/history/${transactionId}`
+            const url = `${API_URL}/history/${transactionId}`
             const result = await axios.delete(url)
-            const refreshUrl = `https://backend-coffee-shop.vercel.app/history/${userId}`
+            const refreshUrl = `${API_URL}/history/${userId}`
             await axios.get(refreshUrl).then(res => setHistory(res.data.data)).catch(err => console.log(err))
             Toast.show({
                 type: 'success',

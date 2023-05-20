@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { API_URL} from '@env'
 
 import style from '../../styles/category'
 import navStyle from '../../styles/nav'
@@ -28,7 +29,7 @@ const Category = () => {
         setShowFIlter(false)
         try {
             setIsLoading(true)
-            let url = `https://backend-coffee-shop.vercel.app/products`
+            let url = `${API_URL}/products`
             categoryMdl === null ? url : url += `?category=${categoryMdl}`
             categoryMdl && sortMdl ? url += `&sortBy=${sortMdl}` : sortMdl ? url += `?sort=${sortMdl}` : url += ``
             const result = await axios.get(url)
@@ -48,7 +49,7 @@ const Category = () => {
         setShowFIlter(false)
         try {
             setIsLoading(true)
-            const url = `https://backend-coffee-shop.vercel.app/products`
+            const url = `${API_URL}/products`
             const result = await axios.get(url)
             setProduct(result.data)
             
@@ -63,7 +64,7 @@ const Category = () => {
         let getData = true
         if (getData) {
             setIsLoading(true)
-            let url = `https://backend-coffee-shop.vercel.app/products`
+            let url = `${API_URL}/products`
             category === null ? url : url += `?category=${category}`
             category && sort ? url += `&sortBy=${sort}` : sort ? url += `?sort=${sort}` : url += ``
             axios.get(url).then(res => setProduct(res.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))

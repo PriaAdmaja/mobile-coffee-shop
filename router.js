@@ -209,7 +209,9 @@ const DrawerNavigator = () => {
             drawerContent={props => <CustomDrawer {...props} />}
         >
             <Drawer.Screen name='Home' component={home}
+            
                 options={{
+                    drawerItemStyle: {height: 0},
                     drawerIcon: () => {
                         return (
                             <Image source={require('./src/assets/icons/home.png')} style={{ width: 22, height: 22, }} />

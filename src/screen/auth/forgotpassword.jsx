@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from "axios";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import Loader from "../../components/Loader";
+import { API_URL } from '@env';
 
 import startStyle from '../../styles/start';
 import authStyle from '../../styles/auth'
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
     const sendEmail = async() => {
         try {
             setIsLoading(true)
-            const url = `https://backend-coffee-shop.vercel.app/auth/forgotpassword/${email}`;
+            const url = `${API_URL}/auth/forgotpassword/${email}`;
             const result = await axios.patch(url)
             Toast.show({
                 type: 'success',

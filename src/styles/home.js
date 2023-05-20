@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native'
 const style = StyleSheet.create({
     homeView: {
         flex: 1,
-        padding: 25
+        paddingTop: 25,
+        paddingHorizontal: 25,
+        paddingBottom: 10
     },
     upView: {
         flex: 1
@@ -20,7 +22,7 @@ const style = StyleSheet.create({
     homeTitle: {
         fontWeight: '900',
         fontSize: 35,
-
+        color: '#000000'
     },
     titleWraper: {
         flex: 1,
@@ -84,8 +86,8 @@ const style = StyleSheet.create({
         borderRadius: 30,
         display: 'flex',
         justifyContent: 'center',
-        width: 156,
-        height: 212,
+        width: 140,
+        height: 180,
         alignItems: 'center',
         marginTop: 40,
         position: 'relative'
@@ -104,26 +106,28 @@ const style = StyleSheet.create({
     },
     text: {
         position: 'absolute',
-        bottom: 20
+        bottom: 15
     },
     productName: {
         fontWeight: '900',
         fontSize: 22,
         textAlign: 'center',
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
+        color: '#000000'
     },
     price: {
         color: '#6A4029',
         fontWeight: '700',
         textAlign: 'center',
         paddingHorizontal: 5,
-        paddingTop: 10
+        paddingTop: 5
     },
     button: {
         backgroundColor: '#6A4029',
         borderRadius: 20,
         paddingVertical: 22,
         position: 'relative',
+        marginTop: 5
     },
     textButton: {
         color: '#ffffff',

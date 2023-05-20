@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Toast } from "react-native-toast-message/lib/src/Toast"
 import axios from 'axios';
+import { API_URL} from '@env'
 
 import style from '../../styles/payment'
 import navStyle from '../../styles/nav'
@@ -43,7 +44,7 @@ const Payment = () => {
                 products: cart.map(selectedData)
             }
             console.log(body);
-            const url = `https://backend-coffee-shop.vercel.app/transactions`
+            const url = `${API_URL}/transactions`
             const result = await axios.post(url, body, {
                 headers: {
                     'Authorization': `Bearer ${token}`

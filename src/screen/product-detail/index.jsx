@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { API_URL} from '@env'
 
 import style from '../../styles/productDetail'
 import Loader from '../../components/Loader'
@@ -17,7 +18,7 @@ const ProductDetail = () => {
     const navigation = useNavigation()
 
     useEffect(() => {
-        const url = `https://backend-coffee-shop.vercel.app/products/${productId}`
+        const url = `${API_URL}/products/${productId}`
         axios.get(url).then(res => setData(res.data?.data[0])).catch(err => console.log(err))
     }, [productId])
 
