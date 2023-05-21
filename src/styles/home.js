@@ -22,7 +22,8 @@ const style = StyleSheet.create({
     homeTitle: {
         fontWeight: '900',
         fontSize: 35,
-        color: '#000000'
+        color: '#000000',
+        fontFamily: 'Poppins-Medium'
     },
     titleWraper: {
         flex: 1,

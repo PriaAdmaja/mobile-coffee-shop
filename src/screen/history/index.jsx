@@ -70,7 +70,7 @@ const History = () => {
             <Text style={style.mainTitle}>Order History</Text>
             <View style={style.swipe}>
                 <Image source={require('../../assets/icons/iwwa_swipe.png')} />
-                <Text>Swipe on item to delete</Text>
+                <Text style={{color: '#000000'}}>Swipe on item to delete</Text>
             </View>
             {isLoading ? <Loader.Loader isLoading={true} /> :
                 <FlatList
