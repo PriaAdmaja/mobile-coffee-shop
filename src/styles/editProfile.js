@@ -38,6 +38,7 @@ const style = StyleSheet.create({
     text: {
         fontWeight: '700',
         fontSize: 13,
+        color: '#000000'
     },
     input : {
         borderBottomColor: '#9f9f9f',

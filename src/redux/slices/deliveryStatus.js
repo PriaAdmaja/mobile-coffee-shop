@@ -4,7 +4,7 @@ const deliveryStatusSlice = createSlice({
     name: "deliveryStatus",
     initialState: {
             deliveryId: null,
-            notes: ''
+            notes: null
         
     },
     reducers: {
@@ -23,7 +23,8 @@ const deliveryStatusSlice = createSlice({
         deleteDelivery: (prevState) => {
             return {
                 ...prevState,
-                delivery: {}
+                deliveryId: null,
+                notes: null
             }
         }
     }

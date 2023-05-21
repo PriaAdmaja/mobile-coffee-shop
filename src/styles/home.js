@@ -23,7 +23,7 @@ const style = StyleSheet.create({
         fontWeight: '900',
         fontSize: 35,
         color: '#000000',
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Black'
     },
     titleWraper: {
         flex: 1,

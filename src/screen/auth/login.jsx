@@ -64,7 +64,7 @@ const Login = () => {
             </View>
             <View style={authStyle.bottomView}>
                 <View style={authStyle.loginTextView}>
-                    <TextInput placeholder="Enter your email address" style={authStyle.inputText} onChangeText={text => setEmail(text)} />
+                    <TextInput placeholder="Enter your email address" keyboardType="email-address" style={authStyle.inputText} onChangeText={text => setEmail(text)} />
                     <TextInput secureTextEntry={true} placeholder="Enter your password" style={authStyle.inputText} onChangeText={text => setPassword(text)} />
                     <Text style={authStyle.forgotPass} onPress={() => navigation.navigate('forgot')}>Forgot Password?</Text>
                 </View>

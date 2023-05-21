@@ -7,12 +7,12 @@ import { API_URL } from '@env'
 import style from '../../styles/logout'
 import Loader from '../../components/Loader'
 import { userInfoAction } from '../../redux/slices/userInfo'
+import doLogout from '../../utils/doLogout'
 
 const Logout = ({ show, hideModal }) => {
     const [isLoading, setIsLoading] = useState(false)
     const { userId, token } = useSelector(state => state.userInfo)
     const dispatch = useDispatch()
-
 
     const logout = async () => {
         try {
@@ -30,7 +30,7 @@ const Logout = ({ show, hideModal }) => {
                 }
             })
         } catch (error) {
-            console.log(error.response.data.msg)
+            console.log(error)
         } finally {
             dispatch(userInfoAction.clearData())
             setIsLoading(false)

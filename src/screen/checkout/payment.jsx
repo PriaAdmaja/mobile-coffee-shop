@@ -4,12 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Toast } from "react-native-toast-message/lib/src/Toast"
 import axios from 'axios';
-import { API_URL} from '@env'
+import { API_URL } from '@env'
 
 import style from '../../styles/payment'
 import navStyle from '../../styles/nav'
 import Loader from '../../components/Loader';
 import { cartAction } from '../../redux/slices/cart';
+import { deliveryStatusAction } from '../../redux/slices/deliveryStatus';
 
 const Payment = () => {
     const [paymentId, setPaymentId] = useState()
@@ -53,18 +54,19 @@ const Payment = () => {
                 type: 'success',
                 text1: result.data.msg
             });
-            dispatch(deliveryAction.removeDelivery())
-            dispatch(cartAction.clearCart())
+
             navigation.navigate('History')
         } catch (error) {
-            console.log(error.response.data);
-            // Toast.show({
-            //     type: 'error',
-            //     text1: 'error.response.data.msg'
-            // })
+            // console.log(error.response.data);
+            Toast.show({
+                type: 'error',
+                text1: 'error.response.data.msg'
+            })
         } finally {
             setIsLoading(false)
         }
+        dispatch(deliveryStatusAction.deleteDelivery())
+        dispatch(cartAction.clearCart())
     }
     return (
         <View style={style.mainView}>
@@ -85,10 +87,10 @@ const Payment = () => {
                                     <View style={style.cart}>
                                         <Image source={{ uri: `${data.pict}` }} style={style.image} />
                                         <View style={style.cartContent}>
-                                            <Text style={{color: '#000000'}}>{data.name}</Text>
+                                            <Text style={{ color: '#000000' }}>{data.name}</Text>
                                             <View style={style.cartDetail}>
-                                                <Text style={{color: '#000000'}}>x {data.qty}</Text>
-                                                <Text style={{color: '#000000'}}>IDR {Number(data.price).toLocaleString()}</Text>
+                                                <Text style={{ color: '#000000' }}>x {data.qty}</Text>
+                                                <Text style={{ color: '#000000' }}>IDR {Number(data.price).toLocaleString()}</Text>
                                             </View>
                                         </View>
                                     </View>

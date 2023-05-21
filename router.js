@@ -22,6 +22,7 @@ import Category from './src/screen/home/category.jsx'
 import EmptyCart from './src/screen/cart/empty.jsx'
 import History from './src/screen/history/index.jsx'
 import AddProduct from './src/screen/product-detail/addProduct.jsx'
+import EditPassword from './src/screen/profile/editPassword.jsx'
 
 import CustomDrawer from './src/components/CustomDrawer.js'
 
@@ -137,6 +138,12 @@ const StactNavigator = () => {
                         options={{
                             headerShown: false,
                         }} />
+                    <Screen
+                        name='Edit Password'
+                        component={EditPassword}
+                        options={{
+                            headerShown: false,
+                        }} />
                 </>
             }
         </Navigator>
@@ -209,9 +216,9 @@ const DrawerNavigator = () => {
             drawerContent={props => <CustomDrawer {...props} />}
         >
             <Drawer.Screen name='Home' component={home}
-            
+
                 options={{
-                    drawerItemStyle: {height: 0},
+                    drawerItemStyle: { height: 0 },
                     drawerIcon: () => {
                         return (
                             <Image source={require('./src/assets/icons/home.png')} style={{ width: 22, height: 22, }} />

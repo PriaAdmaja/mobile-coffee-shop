@@ -84,7 +84,7 @@ const History = () => {
                                     <View>
                                         <Text style={style.menuName}>{item.name}</Text>
                                         <Text style={style.total}>IDR {Number(item.grand_total).toLocaleString()}</Text>
-                                        <Text style={style.desc}>{item.method} on {String(item.created_at).split('').splice(0, 10).join('')}</Text>
+                                        <Text style={style.desc}>{item.method}, {item.status} on {String(item.created_at).split('').splice(0, 10).join('')}</Text>
                                     </View>
                                 </View>
                             </Swipeable>

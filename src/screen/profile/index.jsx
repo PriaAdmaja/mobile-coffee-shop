@@ -40,7 +40,7 @@ const Profile = () => {
                         <Text style={style.subTitle}>Order History</Text>
                         <Image source={require('../../assets/icons/right.png')} />
                     </TouchableOpacity >
-                    <TouchableOpacity style={style.navigate}>
+                    <TouchableOpacity style={style.navigate} onPress={() => navigation.navigate('Edit Password')}>
                         <Text style={style.subTitle}>Edit Password</Text>
                         <Image source={require('../../assets/icons/right.png')} />
                     </TouchableOpacity>
