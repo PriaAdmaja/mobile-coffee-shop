@@ -20,7 +20,6 @@ const style = StyleSheet.create({
         paddingBottom: 5
     },
     homeTitle: {
-        fontWeight: '900',
         fontSize: 35,
         color: '#000000',
         fontFamily: 'Poppins-Black'
@@ -55,11 +54,13 @@ const style = StyleSheet.create({
         color: '#6A4029',
         padding: 4,
         borderBottomColor: '#6A4029',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        fontFamily: 'Poppins-Regular'
     },
     buttonNav: {
         color: '#9A9A9D',
         padding: 4,
+        fontFamily: 'Poppins-Regular'
     },
     searchIcon: {
         width: 18,
