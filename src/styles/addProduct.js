@@ -12,7 +12,8 @@ const style = StyleSheet.create({
         borderRadius: 100
     },
     content: {
-        flex: 1
+        flex: 1,
+        position: 'relative'
     },
     imageContentWrap: {
         justifyContent: 'center',
@@ -160,6 +161,17 @@ const style = StyleSheet.create({
         fontSize: 17,
         textAlign: 'center',
         paddingVertical: 22
+    },
+    clearBtn : {
+        width: 44, 
+        height: 44, 
+        backgroundColor: '#895537', 
+        borderRadius: 22, 
+        position: 'absolute', 
+        top: 0, 
+        right: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 

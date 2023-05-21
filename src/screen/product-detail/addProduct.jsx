@@ -15,7 +15,7 @@ import Loader from '../../components/Loader'
 const AddProduct = () => {
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState();
-    const [name, setName] = useState('');
+    const [name, setName] = useState();
     const [price, setPrice] = useState();
     const [description, setDescription] = useState();
     const [categoryId, setCategoryId] = useState()
@@ -95,6 +95,15 @@ const AddProduct = () => {
             setIsLoading(false)
         }
     }
+
+    const clearForm = () => {
+        setImage(null)
+        setName(null)
+        setPrice(null)
+        setDescription(null)
+        setCategoryId(null)
+    }
+
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>
@@ -110,11 +119,11 @@ const AddProduct = () => {
                     <TouchableOpacity style={style.addPictBtn} onPress={() => setShowModal(true)}>
                         <Text style={style.addPictText}>Add pictures</Text>
                     </TouchableOpacity>
-                    <TextInput placeholder='Type product name' style={style.inputInside} onChangeText={text => setName(text)} />
-                    <TextInput placeholder='Type product price' keyboardType="numeric" style={style.inputInside} onChangeText={text => setPrice(text)} />
+                    <TextInput placeholder='Type product name' value={name} style={style.inputInside} onChangeText={text => setName(text)} />
+                    <TextInput placeholder='Type product price' value={price} keyboardType="numeric" style={style.inputInside} onChangeText={text => setPrice(text)} />
                 </View>
                 <Text style={style.subTitle}>Description</Text>
-                <TextInput placeholder='Describe your product' style={style.inputOutside} onChangeText={text => setDescription(text)} />
+                <TextInput placeholder='Describe your product' value={description} style={style.inputOutside} onChangeText={text => setDescription(text)} />
                 <Text style={style.subTitle}>Category</Text>
                 <View style={style.categoryWrap}>
                     <TouchableOpacity style={style.choiceWrap} onPress={() => setCategoryId(1)}>
@@ -153,6 +162,9 @@ const AddProduct = () => {
                 </View>
                 <TouchableOpacity style={name && price && description && categoryId ? style.button : {display: 'none'}} onPress={sendProductData}>
                     <Text style={style.textButton}>Save Product</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={style.clearBtn} onPress={clearForm}>
+                    <Image source={require('../../assets/icons/delete.png')} style={{width: 14, height: 16, tintColor:'#ffffff'}}/>
                 </TouchableOpacity>
             </ScrollView>
             <Modal animationType='fade' visible={showModal} transparent={true}>
