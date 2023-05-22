@@ -12,7 +12,7 @@ const style = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         textAlign: 'center',
         paddingBottom: 16,
         color: '#000000'
@@ -46,7 +46,7 @@ const style = StyleSheet.create({
         color: '#000000'
     },
     productName: {
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 20,
         textAlign: 'center',
         paddingHorizontal: 5,
@@ -54,7 +54,7 @@ const style = StyleSheet.create({
     },
     price: {
         color: '#6A4029',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         textAlign: 'center',
         paddingHorizontal: 5,
         // paddingTop: 10
@@ -85,7 +85,7 @@ const style = StyleSheet.create({
     },
     filterText: {
         fontSize: 15,
-        fontWeight: '600',
+        fontFamily: 'Poppins-SemiBold',
         color: '#000000'
     },
     modalView: {
@@ -105,7 +105,7 @@ const style = StyleSheet.create({
     },
     modalSubtitle: {
         fontSize: 18,
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         paddingBottom: 10,
         color: '#000000'
     },
@@ -116,13 +116,13 @@ const style = StyleSheet.create({
     },
     selectFilterText : {
         color: '#000000',
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: "center"
     },
     cancelText: {
         color: '#ffffff',
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: "center"
     },

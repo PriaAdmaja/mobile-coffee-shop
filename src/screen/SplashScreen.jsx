@@ -17,7 +17,7 @@ const SplashScreen = () => {
     return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', gap: 20}}>
             <Image source={require('../assets/images/cup.png')} style={{width: 200, height: 200}}/>
-            <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 30}}>My Coffee</Text>
+            <Text style={{textAlign: 'center', fontFamily: 'Poppins-Bold', fontSize: 30, color: '#000000'}}>My Coffee</Text>
         </View>
     )
 }

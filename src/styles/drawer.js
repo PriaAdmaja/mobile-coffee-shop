@@ -21,13 +21,13 @@ const style = StyleSheet.create({
         borderRadius: 70
     },
     name: {
-        fontWeight: '600',
+        fontFamily: 'Poppins-SemiBold',
         fontSize: 17,
         color: '#ffffff',
         paddingTop: 5
     },
     email: {
-        fontWeight: '400',
+        fontFamily: 'Poppins-Regular',
         fontSize: 15,
         color: '#ffffff'
     },
@@ -37,7 +37,7 @@ const style = StyleSheet.create({
     },
     logoutText: {
         color: '#6A4029',
-        fontWeight: '600',
+        fontFamily: 'Poppins-SemiBold',
         fontSize: 17
     }
 })

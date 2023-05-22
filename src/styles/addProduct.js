@@ -157,7 +157,7 @@ const style = StyleSheet.create({
     },
     fakeTextButton : {
         color: '#000000',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center',
         paddingVertical: 22

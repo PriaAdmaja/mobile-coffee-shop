@@ -21,7 +21,7 @@ const style = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         textAlign: 'center'
     },
     buttonWrapper: {
@@ -47,12 +47,12 @@ const style = StyleSheet.create({
     },
     cancelText: {
         color: '#000000',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 18
     },
     logoutText: {
         color: '#ffffff',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 18
     }
 

@@ -73,7 +73,7 @@ const style = StyleSheet.create({
     },
     seeMore: {
         color: '#6A4029',
-        fontWeight: '400',
+        fontFamily: 'Poppins-Regular'
     },
     cardCover: {
         display: 'flex',
@@ -111,7 +111,7 @@ const style = StyleSheet.create({
         bottom: 15
     },
     productName: {
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 22,
         textAlign: 'center',
         paddingHorizontal: 5,
@@ -119,7 +119,7 @@ const style = StyleSheet.create({
     },
     price: {
         color: '#6A4029',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         textAlign: 'center',
         paddingHorizontal: 5,
         paddingTop: 5
@@ -133,7 +133,7 @@ const style = StyleSheet.create({
     },
     textButton: {
         color: '#ffffff',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center'
     },

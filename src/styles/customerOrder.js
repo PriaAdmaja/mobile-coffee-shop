@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native'
 
 const style = StyleSheet.create({
     mainView: {
@@ -15,7 +15,7 @@ const style = StyleSheet.create({
     },
     textButton: {
         color: '#ffffff',
-        fontFamily: 'Poppins-Bold',
+        fontWeight: '700',
         fontSize: 17,
         textAlign: 'center'
     },
@@ -51,16 +51,11 @@ const style = StyleSheet.create({
         gap: 14,
         borderRadius: 12
     },
-    qtyText: {
-        color: '#ffffff',
-        fontFamily: 'Poppins-Bold',
-        fontSize: 13
-    },
     descCard: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        gap: 10,
+        gap: 5,
         
     },
     detailCard: {
@@ -80,19 +75,38 @@ const style = StyleSheet.create({
     content: {
         flex: 1
     },
-    delete: {
+    cross : {
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: '#6A4029',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    check: {
         width: 44,
         height: 44,
         borderRadius: 22,
         backgroundColor: '#FFBA33',
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     swipeCOntent: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingLeft: 24
+        paddingLeft: 24,
+        flexDirection: 'row',
+        gap: 10
+    },
+    price: {
+        fontFamily: 'Poppins-Regular',
+        color: '#6A4029',
+        fontSize: 15
+    },
+    detail : {
+        fontFamily: 'Poppins-Regular',
+        color: '#6A4029',
+        fontSize: 12
     }
 })
 

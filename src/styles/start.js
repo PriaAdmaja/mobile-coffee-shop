@@ -2,15 +2,14 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     startTitle: {
-        fontSize: 65,
+        fontSize: 58,
         color: 'black',
-        fontWeight: '700',
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Bold',
+        lineHeight: 70
     },
     startDescription: {
         fontSize: 17,
         textAlign: 'center',
-        fontWeight: '400',
         fontFamily: 'Poppins-Medium'
     },
     background: {
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     },
     textButton: {
         color: '#ffffff',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center',
         paddingVertical: 22
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     },
     textSecondButton: {
         color: '#000000',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center',
         paddingVertical: 22

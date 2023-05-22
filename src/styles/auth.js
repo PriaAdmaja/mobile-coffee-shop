@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     upLoginText: {
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 50,
         flex: 1,
         color: '#000000'
@@ -43,9 +43,10 @@ const styles = StyleSheet.create({
         marginBottom: 22,
     },
     forgotPass: {
-        paddingTop: 23,
+        paddingTop: 15,
         color: '#895537',
-        textDecorationLine: 'underline'
+        textDecorationLine: 'underline',
+        fontFamily: 'Poppins-Regular'
     },
     googleBtn: {
         display: 'flex',
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
         height: 26,
     },
     googleText: {
-        fontWeight: 400,
+        fontFamily: 'Poppins-Regular',
         color: '#000000',
         fontSize: 17
     },
@@ -77,22 +78,22 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         color: '#9F9F9F',
-
     },
     textBarrier: {
         color: '#9F9F9F',
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
     },
     textForgot : {
         color: '#000000',
         textAlign: 'center',
-        paddingVertical: 25
+        paddingVertical: 25,
+        fontFamily: 'Poppins-Regular',
     },
     startTitle: {
         fontSize: 50,
         color: 'black',
-        fontFamily: 'Poppins-Medium',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         textAlign: 'center'
     },
     fakeButton : {
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     },
     fakeTextButton : {
         color: '#000000',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center',
         paddingVertical: 22

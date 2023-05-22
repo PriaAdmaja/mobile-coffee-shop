@@ -36,7 +36,7 @@ const style = StyleSheet.create({
         marginBottom: 20
     },
     text: {
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 13,
         color: '#000000'
     },
@@ -57,13 +57,13 @@ const style = StyleSheet.create({
     },
     imageText: {
         color: '#000000',
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: "center"
     },
     saveText: {
         color: '#ffffff',
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: "center"
     },
@@ -112,12 +112,12 @@ const style = StyleSheet.create({
     },
     genderTextInactive : {
         fontSize: 13,
-        fontWeight: '400',
+        fontFamily: 'Poppins-Regular',
         color: '#9f9f9f'
     },
     genderTextActive : {
         fontSize: 13,
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         color: '#000000'
     },
     centeredView: {

@@ -23,6 +23,7 @@ import EmptyCart from './src/screen/cart/empty.jsx'
 import History from './src/screen/history/index.jsx'
 import AddProduct from './src/screen/product-detail/addProduct.jsx'
 import EditPassword from './src/screen/profile/editPassword.jsx'
+import CustomerOrder from './src/screen/order/CustomerOrder.jsx'
 
 import CustomDrawer from './src/components/CustomDrawer.js'
 
@@ -231,6 +232,15 @@ const DrawerNavigator = () => {
                     drawerIcon: () => {
                         return (
                             <Image source={require('./src/assets/icons/edit-profile.png')} style={{ width: 22, height: 22, }} />
+                        )
+                    }
+                }}
+            />
+             <Drawer.Screen name='Order' component={CustomerOrder}
+                options={{
+                    drawerIcon: () => {
+                        return (
+                            <Image source={require('./src/assets/icons/order.png')} style={{ width: 20, height: 16, tintColor: '#6A4029' }} />
                         )
                     }
                 }}

@@ -36,17 +36,17 @@ const style = StyleSheet.create({
     },
     menuName : {
         fontSize: 17,
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         color: '#000000'
     },
     total : {
         fontSize: 15,
-        fontWeight: '400',
+        fontFamily: 'Poppins-Regular',
         color: '#895537'
     },
     desc : {
         fontSize: 10,
-        fontWeight: '400',
+        fontFamily: 'Poppins-Regular',
         color: '#895537'
     },
     deleteBtn : {

@@ -8,12 +8,12 @@ const style = StyleSheet.create({
     },
     mainTitle: {
         color: '#000000',
-        fontWeight: '900',
+        fontFamily: 'Poppins-Bold',
         fontSize: 34,
         paddingBottom: 20
     },
     subTitle: {
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         color: '#000000'
     },
@@ -45,7 +45,7 @@ const style = StyleSheet.create({
     },
     textButton: {
         color: '#ffffff',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center'
     },
@@ -92,7 +92,7 @@ const style = StyleSheet.create({
         paddingVertical: 10
     },
     deliveryText: {
-        fontWeight: '400',
+        fontFamily: 'Poppins-Regular',
         fontSize: 17,
         color: '#000000'
     },
@@ -106,7 +106,7 @@ const style = StyleSheet.create({
     },
     fakeTextButton : {
         color: '#000000',
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center'
     },
