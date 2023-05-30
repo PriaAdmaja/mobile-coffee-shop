@@ -50,7 +50,8 @@ const style = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         paddingHorizontal: 5,
-        color: '#000000'
+        color: '#000000',
+        lineHeight: 25
     },
     price: {
         color: '#6A4029',

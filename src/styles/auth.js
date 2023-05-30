@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     inputText: {
         borderBottomWidth: 1,
         borderBottomColor: '#9F9F9F',
-        paddingBottom: 6
+        paddingVertical: 10
     },
     upLogin: {
         flexDirection: 'row',
@@ -38,9 +38,10 @@ const styles = StyleSheet.create({
         gap: 5,
         backgroundColor: '#6A4029',
         borderRadius: 20,
+        paddingVertical: 18
     },
     loginTextView: {
-        marginBottom: 22,
+        marginBottom: 15,
     },
     forgotPass: {
         paddingTop: 15,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderColor: '#000000',
         borderWidth: 1,
-        padding: 22,
+        padding: 18,
         gap: 15,
         justifyContent: 'center'
     },
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Bold',
         fontSize: 17,
         textAlign: 'center',
-        paddingVertical: 22
+        paddingVertical: 18
     }
 })
 

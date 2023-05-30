@@ -91,8 +91,8 @@ const Home = () => {
                         </View>
                         <ScrollView horizontal={true} style={style.scrollView}>
                             <View style={style.buttonGroup}>
-                                <Text style={style.buttonNav} >Favorite</Text>
-                                <Text style={style.buttonNav} >Promo</Text>
+                                
+                                <Text style={category === null ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory(null)}>All Menu</Text>
                                 <Text style={category === 'coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('coffee')}>Coffee</Text>
                                 <Text style={category === 'non coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('non coffee')}>Non coffee</Text>
                                 <Text style={category === 'foods' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('foods')}>Foods</Text>

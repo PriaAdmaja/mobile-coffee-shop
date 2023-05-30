@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 5
+        gap: 5,
+        padding: 18,
     },
     secondButtonTouch: {
         backgroundColor: '#FFBA33',
@@ -39,17 +40,15 @@ const styles = StyleSheet.create({
     textButton: {
         color: '#ffffff',
         fontFamily: 'Poppins-Bold',
-        fontSize: 17,
+        fontSize: 16,
         textAlign: 'center',
-        paddingVertical: 22
-
     },
     textSecondButton: {
         color: '#000000',
         fontFamily: 'Poppins-Bold',
-        fontSize: 17,
+        fontSize: 16,
         textAlign: 'center',
-        paddingVertical: 22
+        paddingVertical: 18
 
     },
 })

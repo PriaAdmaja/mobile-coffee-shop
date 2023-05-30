@@ -87,7 +87,7 @@ const CustomerOrder = () => {
             <View style={style.content}>
                 <View style={style.swipe}>
                     <Image source={require('../../assets/icons/iwwa_swipe.png')} />
-                    <Text style={{ color: '#000000' }}>Swipe on item to delete</Text>
+                    <Text style={{ color: '#000000' }}>Swipe on item accept or reject</Text>
                 </View>
                 {isLoading ? <Loader.Loader isLoading={isLoading} /> :
                     <FlatList

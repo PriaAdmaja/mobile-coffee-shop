@@ -115,14 +115,15 @@ const style = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         paddingHorizontal: 5,
-        color: '#000000'
+        color: '#000000',
+        lineHeight: 25
     },
     price: {
         color: '#6A4029',
         fontFamily: 'Poppins-Bold',
         textAlign: 'center',
         paddingHorizontal: 5,
-        paddingTop: 5
+        paddingTop: 0
     },
     button: {
         backgroundColor: '#6A4029',

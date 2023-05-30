@@ -1,5 +1,6 @@
 import { Image, Text, TouchableOpacity, View, TextInput } from "react-native"
 import { API_URL} from '@env'
+import { useNavigation } from "@react-navigation/native"
 
 import startStyle from '../../styles/start'
 import authStyle from '../../styles/auth'
@@ -13,6 +14,7 @@ const SignUp = () => {
     const [password, setPassword] = useState()
     const [phoneNumber, setPhoneNumber] = useState()
     const [isLoading, setIsLoading] = useState(false)
+    const navigation = useNavigation()
 
     const register = async () => {
         try {
@@ -28,6 +30,9 @@ const SignUp = () => {
                 type: 'success',
                 text1: result.data.msg
             });
+            setTimeout(() => {
+                navigation.navigate('login')
+            }, 2000)
         } catch (error) {
             // console.log(error);
             Toast.show({
@@ -53,8 +58,9 @@ const SignUp = () => {
                     <Text style={authStyle.fakeTextButton}>Create Account</Text>
                 </View>
                 <TouchableOpacity style={email && password && phoneNumber ? authStyle.signupBtn : {display: 'none'}} onPressOut={register}>
-                    <Text style={startStyle.textButton}>Create Account</Text>
-                    <Loader.ButtonLoader isLoading={isLoading} />
+                    {isLoading ? <Loader.ButtonLoader isLoading={isLoading}/> : 
+                    <Text style={startStyle.textButton}>Create Account</Text>}
+                    
                 </TouchableOpacity>
             </View>
             <Toast
