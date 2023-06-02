@@ -62,7 +62,7 @@ const History = () => {
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={navStyle.arrowWrapper}>
+                <TouchableOpacity onPress={() => navigation.navigate('tab')} style={navStyle.arrowWrapper}>
                     <Image source={require('../../assets/icons/left.png')} />
                 </TouchableOpacity>
                 <Image source={require('../../assets/icons/left.png')} style={navStyle.hidden} />

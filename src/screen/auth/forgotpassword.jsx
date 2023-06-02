@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View, TextInput } from "react-native"
+import { Image, Text, TouchableOpacity, View, TextInput, Pressable } from "react-native"
 import { useState } from 'react'
 import axios from "axios";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
@@ -17,7 +17,9 @@ const ForgotPassword = () => {
     const [same, setSame] = useState(true)
     const [otp, setOtp] = useState()
     const [newPassword, setNewPassword] = useState()
+    const [hideNewPassword, setHideNewPassword] = useState(true)
     const [reNewPassword, setReNewPassword] = useState()
+    const [hideReNewPassword, setHideReNewPassword] = useState(true)
     const navigation = useNavigation()
 
     const sendEmail = async () => {
@@ -40,8 +42,8 @@ const ForgotPassword = () => {
         }
     }
 
-    const sendNewPassword = async() => {
-        if(newPassword !== reNewPassword) {
+    const sendNewPassword = async () => {
+        if (newPassword !== reNewPassword) {
             return setSame(false)
         }
         setSame(true)
@@ -78,12 +80,12 @@ const ForgotPassword = () => {
                 <Text style={authStyle.startTitle}>Don't Worry!</Text>
                 <Text style={startStyle.startDescription}>Enter your email adress to get reset password link</Text>
                 <Image source={require('../../assets/images/forgot-password.png')} style={startStyle.image} />
-                <TextInput placeholder="Enter your email address" keyboardType="email-address" style={send ? { display: 'none' } : authStyle.inputText} onChangeText={text => setEmail(text)} />
+                <TextInput placeholder="Enter your email address" placeholderTextColor={'#8a8a8a'} keyboardType="email-address" style={send ? { display: 'none' } : authStyle.inputText} onChangeText={text => setEmail(text)} />
                 <Text style={send ? authStyle.textForgot : { opacity: 0 }}>Haven’t received any link?</Text>
-                <View style={ email ? { display: 'none' } : editStyle.fakeBtn}>
+                <View style={email ? { display: 'none' } : editStyle.fakeBtn}>
                     <Text style={editStyle.fakeBtnText}>Change Password</Text>
                 </View>
-                <TouchableOpacity style={email ? startStyle.buttonTouch : {display: 'none'}} onPress={sendEmail}>
+                <TouchableOpacity style={email ? startStyle.buttonTouch : { display: 'none' }} onPress={sendEmail}>
                     <Text style={startStyle.textButton}>{send ? 'Resend Link' : 'Send Link'}</Text>
                     <Loader.ButtonLoader isLoading={isLoading} />
                 </TouchableOpacity>
@@ -92,22 +94,34 @@ const ForgotPassword = () => {
                 <View style={editStyle.formView}>
                     <View style={editStyle.inputWrap}>
                         <Text style={editStyle.text}>OTP :</Text>
-                        <TextInput placeholder='Input your OTP code' style={editStyle.inputText} onChangeText={text => setOtp(text)} />
+                        <TextInput placeholder='Input your OTP code' placeholderTextColor={'#8a8a8a'} style={authStyle.inputText} onChangeText={text => setOtp(text)} />
                     </View>
                     <View style={editStyle.inputWrap}>
                         <Text style={same ? editStyle.text : editStyle.textWarn}>New Password :</Text>
-                        <TextInput placeholder='Input your new password' secureTextEntry={true} style={same ? editStyle.inputText : editStyle.inputTextWarn} onChangeText={text => setNewPassword(text)} />
+                        <View style={authStyle.passwordWrap}>
+                            <TextInput secureTextEntry={hideNewPassword} placeholder="Enter your password" placeholderTextColor={'#8a8a8a'} style={authStyle.inputPassword} onChangeText={text => setNewPassword(text)} />
+                            <Pressable onPress={() => hideNewPassword ? setHideNewPassword(false) : setHideNewPassword(true)}>
+                                <Image source={require('../../assets/icons/eye.png')} style={hideNewPassword ? { display: 'none' } : authStyle.eye} />
+                                <Image source={require('../../assets/icons/eye-crossed.png')} style={hideNewPassword ? authStyle.eye : { display: 'none' }} />
+                            </Pressable>
+                        </View>
                     </View>
                     <View style={editStyle.inputWrap}>
                         <Text style={same ? editStyle.text : editStyle.textWarn}>Confirm New Password :</Text>
-                        <TextInput placeholder='Input your new password' secureTextEntry={true} style={same ? editStyle.inputText : editStyle.inputTextWarn} onChangeText={text => setReNewPassword(text)} />
+                        <View style={authStyle.passwordWrap}>
+                            <TextInput secureTextEntry={hideReNewPassword} placeholder="Enter your password" placeholderTextColor={'#8a8a8a'} style={authStyle.inputPassword} onChangeText={text => setReNewPassword(text)} />
+                            <Pressable onPress={() => hideReNewPassword ? setHideReNewPassword(false) : setHideNewPassword(true)}>
+                                <Image source={require('../../assets/icons/eye.png')} style={hideReNewPassword ? { display: 'none' } : authStyle.eye} />
+                                <Image source={require('../../assets/icons/eye-crossed.png')} style={hideReNewPassword ? authStyle.eye : { display: 'none' }} />
+                            </Pressable>
+                        </View>
                     </View>
                     <Text style={same ? { opacity: 0 } : editStyle.warn}>Check your new password</Text>
                 </View>
-                <View style={ newPassword && reNewPassword ? { display: 'none' } : editStyle.fakeBtn}>
+                <View style={newPassword && reNewPassword ? { display: 'none' } : editStyle.fakeBtn}>
                     <Text style={editStyle.fakeBtnText}>Change Password</Text>
                 </View>
-                <TouchableOpacity style={ newPassword && reNewPassword ? editStyle.saveBtn : { display: 'none' }} onPress={sendNewPassword}>
+                <TouchableOpacity style={newPassword && reNewPassword ? editStyle.saveBtn : { display: 'none' }} onPress={sendNewPassword}>
                     {isLoading ? <Loader.ButtonLoader isLoading={isLoading} /> :
                         <Text style={editStyle.saveText}>Change Password</Text>}
                 </TouchableOpacity>

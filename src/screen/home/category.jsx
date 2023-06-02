@@ -30,12 +30,26 @@ const Category = () => {
         try {
             setIsLoading(true)
             let url = `${API_URL}/products`
-            if (categoryMdl !== null) {
-                url += `?category=${categoryMdl}`
+            // if (categoryMdl !== null) {
+            //     url += `?category=${categoryMdl}`
+            // }
+            // categoryMdl !== null && sortMdl !== null ? url += `&sortBy=${sortMdl}&page=1` : sortMdl !== null ?  url += `?sort=${sortMdl}&page=1` : categoryMdl !== null ?  url += `&page=1` : url += `?page=1`
+            const query = []
+            if(categoryMdl) {
+                query.push(`category=${categoryMdl}`)
             }
-            categoryMdl !== null && sortMdl !== null ? url += `&sortBy=${sortMdl}&page=1` : sortMdl !== null ?  url += `?sort=${sortMdl}&page=1` : categoryMdl !== null ?  url += `&page=1` : url += `?page=1`
+            if(sortMdl) {
+                query.push(`sortBy=${sortMdl}`)
+            }
+            if(page) {
+                query.push(`page=${page}`)
+            }
+            if(query.length > 0) {
+                url += `?${query.join('&')}`
+            }
+            console.log(url);
             const result = await axios.get(url)
-            setProduct(result.data.data[0])
+            setProduct(result.data.data)
         } catch (error) {
             console.log(error);
         } finally {
@@ -52,14 +66,9 @@ const Category = () => {
         setShowFIlter(false)
         try {
             setIsLoading(true)
-            const url = `${API_URL}/products`
-            if (category !== null) {
-                url += `?category=${category}`
-            }
-            category !== null && sort !== null ? url += `&sortBy=${sort}&page=1` : sort !== null ?  url += `?sort=${sort}&page=1` : url += `?page=1`
+            let url = `${API_URL}/products?page=1`
             const result = await axios.get(url)
             setProduct(result.data.data)
-
         } catch (error) {
             console.log(error);
         } finally {
@@ -67,26 +76,32 @@ const Category = () => {
         }
     }
 
-    const nextPage = async () => {
-        setPage(prev => prev + 1)
-        let currentPage = page + 1
-        try {
-            let url = `${API_URL}/products`
-            if (categoryMdl !== null) {
-                url += `?category=${categoryMdl}`
-            }
-            categoryMdl !== null && sortMdl !== null ? url += `&sortBy=${sortMdl}&page=${currentPage}` : sortMdl !== null ?  url += `?sort=${sortMdl}&page=${currentPage}` : url += `?page=${currentPage}`
-
-            const result = await axios.get(url)
-            const prevData = [...product]
-            const newData = prevData.concat(result.data.data)
-            console.log(newData.length);
-            setProduct(newData)
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // const nextPage = async () => {
+    //     setPage(prev => prev + 1)
+    //     let currentPage = page + 1
+    //     try {
+    //         let url = `${API_URL}/products`
+    //         const query = []
+    //         if(categoryMdl) {
+    //             query.push(`category=${categoryMdl}`)
+    //         }
+    //         if(sortMdl) {
+    //             query.push(`sortBy=${sortMdl}`)
+    //         }
+    //         if(page) {
+    //             query.push(`page=${page}`)
+    //         }
+    //         if(query.length > 0) {
+    //             url += `?${query.join('&')}`
+    //         }
+    //         const result = await axios.get(url)
+    //         const prevData = [...product]
+    //         const newData = prevData.concat(result.data.data)
+    //         setProduct(newData)
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     useEffect(() => {
         let getData = true
@@ -97,8 +112,6 @@ const Category = () => {
                 url += `?category=${category}`
             }
             category !== null && sort !== null ? url += `&sortBy=${sort}&page=1` : sort !== null ?  url += `?sort=${sort}&page=1` : category !== null ?  url += `&page=1` : url += `?page=1`
-
-            console.log(url);
             axios.get(url).then(res => setProduct(res.data.data)).catch(err => console.log(err.response.data.msg)).finally(() => setIsLoading(false))
         }
         return () => { getData = false }
@@ -128,7 +141,7 @@ const Category = () => {
                     numColumns={2}
                     columnWrapperStyle={style.flatList}
                     // onEndReachedThreshold={2}
-                    onEndReached={nextPage}
+                    // onEndReached={nextPage}
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity style={style.productCard} key={item.id} onPress={() => viewDetail(item.id)}>
@@ -150,31 +163,31 @@ const Category = () => {
                         <Text style={style.modalSubtitle}>Sort :</Text>
                         <View style={style.filterWrap}>
                             <TouchableOpacity style={sortMdl === null ? style.filterBtnActive : style.filterBtn} onPress={() => setSortMdl(null)}>
-                                <Text>A-Z</Text>
+                                <Text style={{color: '#000000'}}>A-Z</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={sortMdl === 'nameDesc' ? style.filterBtnActive : style.filterBtn} onPress={() => setSortMdl('nameDesc')}>
-                                <Text>Z-A</Text>
+                                <Text style={{color: '#000000'}}>Z-A</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={sortMdl === 'cheapest' ? style.filterBtnActive : style.filterBtn} onPress={() => setSortMdl('cheapest')}>
-                                <Text>Price Asc</Text>
+                                <Text style={{color: '#000000'}}>Price Asc</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={sortMdl === 'priciest' ? style.filterBtnActive : style.filterBtn} onPress={() => setSortMdl('priciest')}>
-                                <Text>Price Desc</Text>
+                                <Text style={{color: '#000000'}}>Price Desc</Text>
                             </TouchableOpacity>
                         </View>
                         <Text style={style.modalSubtitle}>Category :</Text>
                         <View style={style.filterWrap}>
                             <TouchableOpacity style={categoryMdl === null ? style.filterBtnActive : style.filterBtn} onPress={() => setCategoryMdl(null)}>
-                                <Text>All menu</Text>
+                                <Text style={{color: '#000000'}}>All menu</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={categoryMdl === 'coffee' ? style.filterBtnActive : style.filterBtn} onPress={() => setCategoryMdl('coffee')}>
-                                <Text>Coffee</Text>
+                                <Text style={{color: '#000000'}}>Coffee</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={categoryMdl === 'non coffee' ? style.filterBtnActive : style.filterBtn} onPress={() => setCategoryMdl('non coffee')}>
-                                <Text>Non coffee</Text>
+                                <Text style={{color: '#000000'}}>Non coffee</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={categoryMdl === 'foods' ? style.filterBtnActive : style.filterBtn} onPress={() => setCategoryMdl('foods')}>
-                                <Text>Foods</Text>
+                                <Text style={{color: '#000000'}}>Foods</Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity style={style.selectFilterBtn} onPress={saveFilter}>

@@ -13,7 +13,11 @@ const styles = StyleSheet.create({
     inputText: {
         borderBottomWidth: 1,
         borderBottomColor: '#9F9F9F',
-        paddingVertical: 10
+        paddingVertical: 10,
+        color: '#000000',
+        width: '100%',
+        marginBottom: 4,
+        fontSize: 17
     },
     upLogin: {
         flexDirection: 'row',
@@ -114,7 +118,26 @@ const styles = StyleSheet.create({
         fontSize: 17,
         textAlign: 'center',
         paddingVertical: 18
-    }
+    },
+    eye: {
+        width: 25,
+        height: 25,
+        tintColor: '#000000'
+    },
+    passwordWrap : {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderBottomColor: '#9F9F9F',
+        paddingVertical: 3
+    },
+    inputPassword: {
+        fontSize: 17,
+        color: '#000000',
+        width: '80%',
+    },
 })
 
 export default styles

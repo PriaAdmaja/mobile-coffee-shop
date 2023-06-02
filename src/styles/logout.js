@@ -22,7 +22,8 @@ const style = StyleSheet.create({
     text: {
         fontSize: 18,
         fontFamily: 'Poppins-Bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: '#000000'
     },
     buttonWrapper: {
         flexDirection: 'row',

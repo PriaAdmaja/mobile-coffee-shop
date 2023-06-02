@@ -14,7 +14,7 @@ const style = StyleSheet.create({
     },
     inputWrap: {
         width: '100%',
-        gap: 6
+        gap: 6,
     },
     text: {
         fontSize: 13,
@@ -29,7 +29,8 @@ const style = StyleSheet.create({
         fontFamily: 'Poppins-Regular',
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#9F9F9F'
+        borderColor: '#9F9F9F',
+        color: '#000000'
     },
     textWarn: {
         fontSize: 13,
@@ -76,7 +77,26 @@ const style = StyleSheet.create({
         color: '#e32929',
         fontSize: 12,
         textAlign: 'center'
-    }
+    },
+    eye: {
+        width: 25,
+        height: 25,
+        tintColor: '#000000'
+    },
+    passwordWrap : {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderBottomColor: '#9F9F9F',
+        paddingVertical: 3
+    },
+    inputPassword: {
+        fontSize: 17,
+        color: '#000000',
+        width: '80%',
+    },
 })
 
 export default style

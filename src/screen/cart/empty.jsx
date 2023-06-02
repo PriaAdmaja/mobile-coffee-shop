@@ -12,12 +12,12 @@ const EmptyCart = () => {
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image source={require('../../assets/icons/empty-cart.png')} style={{ width: 120, height: 120 }} />
-                <Text style={{ fontWeight: '900', fontSize: 28, paddingTop: 35 }}>No order yet</Text>
-                <Text style={{ fontWeight: '400', fontSize: 17, textAlign: 'center', paddingTop: 8 }}>Hit the orange button down
+                <Text style={{ fontWeight: '900', fontSize: 28, paddingTop: 35, color: '#000000' }}>No order yet</Text>
+                <Text style={{ fontWeight: '400', fontSize: 17, textAlign: 'center', paddingTop: 8, color: '#000000' }}>Hit the orange button down
                     below to Create an order</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('tab')} style={{ backgroundColor: '#6A4029', borderRadius: 20, justifyContent: 'center', alignItems: 'center', paddingVertical: 22 }}>
-                <Text style={{ color: '#ffffff', fontWeight: '900', fontSize: 17 }}>Start ordering</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('tab')} style={{ backgroundColor: '#FFBA33', borderRadius: 20, justifyContent: 'center', alignItems: 'center', paddingVertical: 22 }}>
+                <Text style={{ color: '#000000', fontWeight: '900', fontSize: 17, }}>Start ordering</Text>
             </TouchableOpacity>
 
         </View>

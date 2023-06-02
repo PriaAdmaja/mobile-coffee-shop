@@ -53,7 +53,8 @@ const style = StyleSheet.create({
         borderBottomColor: '#000000',
         borderBottomWidth: 0.5,
         overflow: 'scroll',
-        width: '100%'
+        width: '100%',
+        color: '#000000'
     },
     dotInactive: {
         width: 10,

@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View, TextInput } from "react-native"
+import { Image, Text, TouchableOpacity, View, TextInput, Pressable } from "react-native"
 import { API_URL} from '@env'
 import { useNavigation } from "@react-navigation/native"
 
@@ -12,6 +12,7 @@ import { Toast } from "react-native-toast-message/lib/src/Toast"
 const SignUp = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [hidePassword, setHidePassword] = useState(true)
     const [phoneNumber, setPhoneNumber] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation()
@@ -50,9 +51,15 @@ const SignUp = () => {
             </View>
             <View style={authStyle.bottomView}>
                 <View style={authStyle.textView}>
-                    <TextInput placeholder="Enter your email address" style={authStyle.inputText} onChangeText={(text) => setEmail(text)} />
-                    <TextInput placeholder="Enter your password" secureTextEntry={true} style={authStyle.inputText} onChangeText={(text) => setPassword(text)} />
-                    <TextInput placeholder="Enter your phone number" keyboardType="numeric" style={authStyle.inputText} onChangeText={(text) => setPhoneNumber(text)} />
+                    <TextInput placeholder="Enter your email address" keyboardType="email-address" placeholderTextColor={'#8a8a8a'} style={authStyle.inputText} onChangeText={(text) => setEmail(text)} />
+                    <View style={authStyle.passwordWrap}>
+                        <TextInput secureTextEntry={hidePassword}  placeholder="Enter your password" placeholderTextColor={'#8a8a8a'} style={authStyle.inputPassword} onChangeText={text => setPassword(text)} />
+                        <Pressable onPress={() => hidePassword ? setHidePassword(false) : setHidePassword(true)}>
+                            <Image source={require('../../assets/icons/eye.png')} style={hidePassword ? {display: 'none'} : authStyle.eye } />
+                            <Image source={require('../../assets/icons/eye-crossed.png')} style={hidePassword? authStyle.eye : {display: 'none'}} />
+                        </Pressable>
+                    </View>
+                    <TextInput placeholder="Enter your phone number" placeholderTextColor={'#8a8a8a'} keyboardType="numeric" style={authStyle.inputText} onChangeText={(text) => setPhoneNumber(text)} />
                 </View>
                 <View style={email && password && phoneNumber ? {display: 'none'} : authStyle.fakeButton}>
                     <Text style={authStyle.fakeTextButton}>Create Account</Text>

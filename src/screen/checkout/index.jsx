@@ -37,7 +37,7 @@ const Checkout = () => {
                     </View>
                     <View style={style.contentCont}>
                         <TextInput editable={editable} selectTextOnFocus={editable} multiline={true} numberOfLines={3} value={address} style={style.textAddress} onChangeText={text => dispatch(userInfoAction.submitAddress(text))} />
-                        <TextInput editable={editable} selectTextOnFocus={editable} value={phone} onChangeText={text => dispatch(userInfoAction.submitPhone(text))} />
+                        <TextInput editable={editable} selectTextOnFocus={editable} style={{color: '#000000'}} value={phone} onChangeText={text => dispatch(userInfoAction.submitPhone(text))} />
                     </View>
                 </View>
                 <View style={style.subCont}>

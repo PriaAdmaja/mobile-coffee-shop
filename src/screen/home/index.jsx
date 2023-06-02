@@ -87,7 +87,7 @@ const Home = () => {
                     <View style={style.upBtm}>
                         <View style={style.searchBar}>
                             <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
-                            <TextInput placeholder='Search' onChangeText={text => setMenuName(text)} />
+                            <TextInput placeholder='Search' placeholderTextColor={'#000000'} onChangeText={text => setMenuName(text)} style={{color: '#000000'}}/>
                         </View>
                         <ScrollView horizontal={true} style={style.scrollView}>
                             <View style={style.buttonGroup}>
@@ -102,7 +102,7 @@ const Home = () => {
                 </View>
                 <View style={style.bottomView}>
                     <TouchableOpacity style={style.coverSeeMore} onPress={seeMore}>
-                        <Text >See more</Text>
+                        <Text style={{color: '#000000'}}>See more</Text>
                     </TouchableOpacity>
                     {isLoading ? <Loader.Loader isLoading={isLoading} /> :
                         <ScrollView horizontal={true} style={style.scrollView}>

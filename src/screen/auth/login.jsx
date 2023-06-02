@@ -1,7 +1,7 @@
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Image, Pressable, Text, TextInput, TouchableOpacity, View, } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { useDispatch } from "react-redux"
-import { API_URL} from '@env'
+import { API_URL } from '@env'
 
 import startStyle from '../../styles/start'
 import authStyle from '../../styles/auth'
@@ -18,6 +18,7 @@ const Login = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [isLoading, setIsLoading] = useState(false)
+    const [hidePassword, setHidePassword] = useState(true)
 
     const dispatch = useDispatch()
 
@@ -36,7 +37,7 @@ const Login = () => {
             dispatch(userInfoAction.submitRolesId(result.data.roles_id))
             const urlProfile = `${API_URL}/users/${result.data.id}`
             const profile = await axios.get(urlProfile)
-            
+
             dispatch(userInfoAction.submitAvatar(profile.data.data[0].pict_url))
             dispatch(userInfoAction.submitDisplayName(profile.data.data[0].display_name))
             dispatch(userInfoAction.submitEmail(profile.data.data[0].email))
@@ -64,14 +65,20 @@ const Login = () => {
             </View>
             <View style={authStyle.bottomView}>
                 <View style={authStyle.loginTextView}>
-                    <TextInput placeholder="Enter your email address" keyboardType="email-address" style={authStyle.inputText} onChangeText={text => setEmail(text)} />
-                    <TextInput secureTextEntry={true} placeholder="Enter your password" style={authStyle.inputText} onChangeText={text => setPassword(text)} />
+                    <TextInput placeholder="Enter your email address" placeholderTextColor={'#8a8a8a'} keyboardType="email-address" style={authStyle.inputText} onChangeText={text => setEmail(text)} />
+                    <View style={authStyle.passwordWrap}>
+                        <TextInput secureTextEntry={hidePassword}  placeholder="Enter your password" placeholderTextColor={'#8a8a8a'} style={authStyle.inputPassword} onChangeText={text => setPassword(text)} />
+                        <Pressable onPress={() => hidePassword ? setHidePassword(false) : setHidePassword(true)}>
+                            <Image source={require('../../assets/icons/eye.png')} style={hidePassword ? {display: 'none'} : authStyle.eye } />
+                            <Image source={require('../../assets/icons/eye-crossed.png')} style={hidePassword? authStyle.eye : {display: 'none'}} />
+                        </Pressable>
+                    </View>
                     <Text style={authStyle.forgotPass} onPress={() => navigation.navigate('forgot')}>Forgot Password?</Text>
                 </View>
-                <View style={email && password ? {display: 'none'} : authStyle.fakeButton}>
+                <View style={email && password ? { display: 'none' } : authStyle.fakeButton}>
                     <Text style={authStyle.fakeTextButton}>Login</Text>
                 </View>
-                <TouchableOpacity style={email && password ? startStyle.buttonTouch : {display: 'none'}} onPressOut={loginAccount}>
+                <TouchableOpacity style={email && password ? startStyle.buttonTouch : { display: 'none' }} onPressOut={loginAccount}>
                     <Text style={startStyle.textButton}>Login</Text>
                     <Loader.ButtonLoader isLoading={isLoading} />
                 </TouchableOpacity>

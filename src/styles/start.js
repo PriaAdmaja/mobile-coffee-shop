@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     startDescription: {
         fontSize: 17,
         textAlign: 'center',
-        fontFamily: 'Poppins-Medium'
+        fontFamily: 'Poppins-Medium',
+        color: '#000000'
     },
     background: {
         backgroundColor: '#f2f2f2',

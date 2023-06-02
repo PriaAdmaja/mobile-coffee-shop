@@ -1,11 +1,11 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Modal, KeyboardAvoidingView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-native-date-picker'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
-import { API_URL} from '@env'
+import { API_URL } from '@env'
 
 import style from '../../styles/editProfile'
 import navStyle from '../../styles/nav'
@@ -22,6 +22,8 @@ const EditProfile = () => {
     const { userId, token } = useSelector(state => state.userInfo)
     const navigation = useNavigation()
     const dispatch = useDispatch()
+
+    const thisDate = new Date()
 
     useEffect(() => {
         const url = `${API_URL}/users/${userId}`;
@@ -78,7 +80,6 @@ const EditProfile = () => {
                     uri: Platform.OS === 'android' ? image.uri : image.uri.replace('file://', '')
                 })
             }
-
             formData.append('displayName', profile.display_name)
             formData.append('firstName', profile.first_name)
             formData.append('lastName', profile.last_name)
@@ -92,21 +93,29 @@ const EditProfile = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            
+            console.log(result.data.data[0].display_name);
             Toast.show({
                 type: 'success',
                 text1: result.data.msg
             });
-            dispatch(userInfoAction.submitAvatar(result.data?.data[0].pict_url))
-            dispatch(userInfoAction.submitDisplayName(result.data?.data[0].display_name))
-            dispatch(userInfoAction.submitEmail(result.data?.data[0].email))
-            dispatch(userInfoAction.submitAddress(result.data?.data[0].address))
+            if (result) {
+                dispatch(userInfoAction.submitAvatar(result.data.data[0].pict_url))
+                dispatch(userInfoAction.submitDisplayName(result.data.data[0].display_name))
+                dispatch(userInfoAction.submitAddress(result.data.data[0].address))
+            }
+            setTimeout(() => {
+                navigation.navigate('profile')
+            }, 2000)
         } catch (error) {
-            
             Toast.show({
                 type: 'error',
                 text1: error.response.data.msg
             })
+            setTimeout(() => {
+                if (error.response.data.msg === 'jwt expired') {
+                    dispatch(userInfoAction.clearData())
+                }
+            }, 1000)
         } finally {
             setIsLoading(false)
         }
@@ -131,71 +140,75 @@ const EditProfile = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View>
-                <View style={style.inputWrap}>
-                    <Text style={style.text}>Name :</Text>
-                    <TextInput style={style.input} value={profile.display_name} onChangeText={(text) => changeData('display_name', text)} />
-                </View>
-                <View style={style.gender}>
-                    <TouchableOpacity style={style.genderNameWrap} onPress={() => changeData('gender', 'female')}>
-                        <View
-                            style={profile.gender === 'female'
-                                ? style.outDotActive
-                                : style.outDotInactive}>
-                            <View style={profile.gender === 'female'
-                                ? style.dotActive
-                                : style.dotInactive}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            >
+                <View>
+                    <View style={style.inputWrap}>
+                        <Text style={style.text}>Name :</Text>
+                        <TextInput style={style.input} value={profile.display_name} onChangeText={(text) => changeData('display_name', text)} />
+                    </View>
+                    <View style={style.gender}>
+                        <TouchableOpacity style={style.genderNameWrap} onPress={() => changeData('gender', 'female')}>
+                            <View
+                                style={profile.gender === 'female'
+                                    ? style.outDotActive
+                                    : style.outDotInactive}>
+                                <View style={profile.gender === 'female'
+                                    ? style.dotActive
+                                    : style.dotInactive}>
+                                </View>
                             </View>
-                        </View>
-                        <Text
-                            style={profile.gender === 'female'
-                                ? style.genderTextActive
-                                : style.genderTextInactive}
-                        >
-                            Female
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={style.genderNameWrap} onPress={() => changeData('gender', 'male')}>
-                        <View
-                            style={profile.gender === 'male'
-                                ? style.outDotActive
-                                : style.outDotInactive}>
-                            <View style={profile.gender === 'male'
-                                ? style.dotActive
-                                : style.dotInactive}>
+                            <Text
+                                style={profile.gender === 'female'
+                                    ? style.genderTextActive
+                                    : style.genderTextInactive}
+                            >
+                                Female
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={style.genderNameWrap} onPress={() => changeData('gender', 'male')}>
+                            <View
+                                style={profile.gender === 'male'
+                                    ? style.outDotActive
+                                    : style.outDotInactive}>
+                                <View style={profile.gender === 'male'
+                                    ? style.dotActive
+                                    : style.dotInactive}>
+                                </View>
                             </View>
-                        </View>
-                        <Text
-                            style={profile.gender === 'male'
-                                ? style.genderTextActive
-                                : style.genderTextInactive}
-                        >
-                            Male
-                        </Text>
-                    </TouchableOpacity>
+                            <Text
+                                style={profile.gender === 'male'
+                                    ? style.genderTextActive
+                                    : style.genderTextInactive}
+                            >
+                                Male
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={style.inputWrap}>
+                        <Text style={style.text}>Email Address :</Text>
+                        <TextInput style={style.input} editable={false} value={profile.email} onChangeText={(text) => changeData('email', text)} />
+                    </View>
+                    <View style={style.inputWrap}>
+                        <Text style={style.text}>Phone Number :</Text>
+                        <TextInput style={style.input} editable={false} value={profile.phone_number} onChangeText={(text) => changeData('phone_number', text)} />
+                    </View>
+                    <View style={style.inputWrap}>
+                        <Text style={style.text}>Date of Birth :</Text>
+                        <TextInput style={style.input} value={profile.birth_date ? String(profile.birth_date).split('').slice(0, 10).join('') : ''} onPressIn={() => setDateModal(true)} />
+                    </View>
+                    <View style={style.inputWrap}>
+                        <Text style={style.text}>Delivery Address :</Text>
+                        <TextInput style={style.input} value={profile.address} onChangeText={(text) => changeData('address', text)} />
+                    </View>
                 </View>
-                <View style={style.inputWrap}>
-                    <Text style={style.text}>Email Address :</Text>
-                    <TextInput style={style.input} editable={false} value={profile.email} onChangeText={(text) => changeData('email', text)} />
-                </View>
-                <View style={style.inputWrap}>
-                    <Text style={style.text}>Phone Number :</Text>
-                    <TextInput style={style.input} editable={false} value={profile.phone_number} onChangeText={(text) => changeData('phone_number', text)} />
-                </View>
-                <View style={style.inputWrap}>
-                    <Text style={style.text}>Date of Birth :</Text>
-                    <TextInput style={style.input} value={String(profile.birth_date).split('').slice(0, 10).join('')} onPressIn={() => setDateModal(true)} />
-                </View>
-                <View style={style.inputWrap}>
-                    <Text style={style.text}>Delivery Address :</Text>
-                    <TextInput style={style.input} value={profile.address} onChangeText={(text) => changeData('address', text)} />
-                </View>
-            </View>
+            </KeyboardAvoidingView>
             <DatePicker
                 modal
                 mode='date'
                 open={dateModal}
-                date={new Date(profile.birth_date)}
+                date={profile.birth_date ? new Date(profile.birth_date) : thisDate}
                 onConfirm={(date) => {
                     setDateModal(false)
                     changeData('birth_date', date.toJSON().split('').slice(0, 10).join(''))

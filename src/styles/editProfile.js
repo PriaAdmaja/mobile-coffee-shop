@@ -43,7 +43,8 @@ const style = StyleSheet.create({
     input : {
         borderBottomColor: '#9f9f9f',
         borderBottomWidth: 1,
-        padding: 0
+        padding: 0,
+        color: '#000000'
     },
     saveBtn: {
         backgroundColor: '#6A4029',
