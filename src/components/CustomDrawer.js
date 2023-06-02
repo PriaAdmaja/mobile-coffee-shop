@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {useState} from 'react'
 
 import style from '../styles/drawer'
@@ -9,7 +9,7 @@ import Logout from '../screen/auth/logout'
 const CustomDrawer = (props) => {
     const [showModal, setShowModal] = useState(false)
     const { avatar, email, displayName } = useSelector(state => state.userInfo)
-
+    
     const hideModal = (data) => {
         setShowModal(data)
     }

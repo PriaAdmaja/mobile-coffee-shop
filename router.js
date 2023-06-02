@@ -29,9 +29,10 @@ import CustomDrawer from './src/components/CustomDrawer.js'
 
 import EditProfile from './src/screen/profile/editProfile.jsx'
 import SplashScreen from './src/screen/SplashScreen.jsx'
+import Cart from './src/screen/cart'
 
 const StactNavigator = () => {
-    const { token } = useSelector(state => state.userInfo)
+    const { token, rolesId } = useSelector(state => state.userInfo)
     const { cartList } = useSelector(state => state.cart)
 
 
@@ -204,7 +205,8 @@ const TabNavigator = () => {
 
 const DrawerNavigator = () => {
     const Drawer = createDrawerNavigator()
-    const { avatar, displayName, email } = useSelector(state => state.userInfo)
+    const {  rolesId } = useSelector(state => state.userInfo)
+    const { cartList } = useSelector(state => state.cart)
     // console.log(token);
     return (
         <Drawer.Navigator
@@ -236,8 +238,9 @@ const DrawerNavigator = () => {
                     }
                 }}
             />
-             <Drawer.Screen name='Order' component={CustomerOrder}
+             <Drawer.Screen name='Order' component={rolesId === 1 ? cartList?.length ? cart : EmptyCart : CustomerOrder}
                 options={{
+                    
                     drawerIcon: () => {
                         return (
                             <Image source={require('./src/assets/icons/order.png')} style={{ width: 20, height: 16, tintColor: '#6A4029' }} />
