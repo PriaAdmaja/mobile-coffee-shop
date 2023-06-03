@@ -10,6 +10,7 @@ import { API_URL} from '@env'
 import style from '../../styles/history'
 import navStyle from '../../styles/nav'
 import Loader from '../../components/Loader';
+import NoHistory from './NoHistory';
 
 const History = () => {
     const [history, setHistory] = useState([])
@@ -31,9 +32,10 @@ const History = () => {
         try {
             setIsLoading(true)
             const url = `${API_URL}/history/${transactionId}`
-            const result = await axios.delete(url)
+            await axios.delete(url)
             const refreshUrl = `${API_URL}/history/${userId}`
-            await axios.get(refreshUrl).then(res => setHistory(res.data.data)).catch(err => console.log(err))
+            const result = await axios.get(refreshUrl)
+            setHistory(result.data.data)
             Toast.show({
                 type: 'success',
                 text1: result.data.msg
@@ -41,8 +43,8 @@ const History = () => {
         } catch (error) {
             console.log(error);
             Toast.show({
-                type: 'success',
-                text1: 'Failed'
+                type: 'error',
+                text1: error.esponse.data.msg
             });
         } finally {
             setIsLoading(false)
@@ -59,6 +61,8 @@ const History = () => {
         )
     }
 
+    if(isLoading) return <Loader.Loader isLoading={isLoading}/>
+    if(history.length === 0) return <NoHistory />
     return (
         <View style={style.mainView}>
             <View style={navStyle.nav}>

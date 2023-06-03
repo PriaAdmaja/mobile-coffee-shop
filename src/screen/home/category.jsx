@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity, Image, Modal } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Image, Modal, TextInput } from 'react-native'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
@@ -108,14 +108,26 @@ const Category = () => {
         if (getData) {
             setIsLoading(true)
             let url = `${API_URL}/products`
-            if (category !== null) {
-                url += `?category=${category}`
+            const query = []
+            if(search) {
+                query.push(`name=${search}`)
             }
-            category !== null && sort !== null ? url += `&sortBy=${sort}&page=1` : sort !== null ?  url += `?sort=${sort}&page=1` : category !== null ?  url += `&page=1` : url += `?page=1`
+            if(category) {
+                query.push(`category=${category}`)
+            }
+            if(sort) {
+                query.push(`sortBy=${sort}`)
+            }
+            if(page) {
+                query.push(`page=${page}`)
+            }
+            if(query.length > 0) {
+                url += `?${query.join('&')}`
+            }
             axios.get(url).then(res => setProduct(res.data.data)).catch(err => console.log(err.response.data.msg)).finally(() => setIsLoading(false))
         }
         return () => { getData = false }
-    }, [])
+    }, [search])
 
     const title = category === 'coffee' ? 'Coffee' : category === 'non coffee' ? 'Non Coffee' : category === 'foods' ? 'Foods' : 'All Menu'
 
@@ -132,10 +144,18 @@ const Category = () => {
                 <Image source={require('../../assets/icons/left.png')} style={navStyle.hidden} />
             </View>
             <Text style={style.title}>{title}</Text>
+            <View style={style.searchBar}>
+                            <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
+                            <TextInput placeholder='Search' placeholderTextColor={'#000000'} onChangeText={text => setSearch(text)} style={{ color: '#000000' }} />
+                        </View>
             <TouchableOpacity style={style.filterBtn} onPress={() => setShowFIlter(true)}>
                 <Text style={style.filterText}>Filter</Text>
             </TouchableOpacity>
             {isLoading ? <Loader.Loader isLoading={true} />
+                : product.length === 0 ? 
+                <View style={{justifyContent: 'center'}}>
+                    <Text style={{color: '#000000', textAlign: 'center', marginTop: 50}}>Product not found</Text>
+                </View>
                 : <FlatList
                     data={product}
                     numColumns={2}

@@ -14,7 +14,7 @@ const style = StyleSheet.create({
         fontSize: 28,
         fontFamily: 'Poppins-Bold',
         textAlign: 'center',
-        paddingBottom: 16,
+        // paddingBottom: 16,
         color: '#000000'
     },
     productCard: {
@@ -146,7 +146,21 @@ const style = StyleSheet.create({
     },
     textClose : {
         color: '#ffffff'
-    }
+    },
+    searchBar: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 16,
+        backgroundColor: '#DDDDDD',
+        borderRadius: 30,
+        paddingHorizontal: 30,
+        marginVertical: 8
+    },
+    searchIcon: {
+        width: 18,
+        height: 18
+    },
 })
 
 export default style

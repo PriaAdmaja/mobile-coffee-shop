@@ -2,7 +2,7 @@ import { View, Text, Image, TextInput, ScrollView, TouchableOpacity, Pressable }
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { API_URL} from '@env'
+import { API_URL } from '@env'
 
 import Loader from '../../components/Loader'
 import style from '../../styles/home'
@@ -46,6 +46,7 @@ const Home = () => {
             if (category) {
                 url = `${API_URL}/products?name=${debouncedSearch}&category=${category}&limit=5`
             }
+            console.log(url);
             axios.get(url).then(res => setProduct(res.data))
                 .catch(err =>
                     Toast.show({
@@ -79,7 +80,7 @@ const Home = () => {
                     <Image source={require('../../assets/icons/shopping-cart.png')} />
                 </TouchableOpacity>
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <View style={style.upView}>
                     <View style={style.titleWraper}>
                         <Text style={style.homeTitle}>A good coffee is a good day</Text>
@@ -87,11 +88,10 @@ const Home = () => {
                     <View style={style.upBtm}>
                         <View style={style.searchBar}>
                             <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
-                            <TextInput placeholder='Search' placeholderTextColor={'#000000'} onChangeText={text => setMenuName(text)} style={{color: '#000000'}}/>
+                            <TextInput placeholder='Search' placeholderTextColor={'#000000'} onChangeText={text => setMenuName(text)} style={{ color: '#000000' }} />
                         </View>
                         <ScrollView horizontal={true} style={style.scrollView}>
                             <View style={style.buttonGroup}>
-                                
                                 <Text style={category === null ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory(null)}>All Menu</Text>
                                 <Text style={category === 'coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('coffee')}>Coffee</Text>
                                 <Text style={category === 'non coffee' ? style.buttonNavActive : style.buttonNav} onPress={() => setCategory('non coffee')}>Non coffee</Text>
@@ -100,31 +100,35 @@ const Home = () => {
                         </ScrollView>
                     </View>
                 </View>
-                <View style={style.bottomView}>
-                    <TouchableOpacity style={style.coverSeeMore} onPress={seeMore}>
-                        <Text style={{color: '#000000'}}>See more</Text>
-                    </TouchableOpacity>
-                    {isLoading ? <Loader.Loader isLoading={isLoading} /> :
-                        <ScrollView horizontal={true} style={style.scrollView}>
-                            <View style={style.cardCover}>
-                                {product.data?.map((data) => {
-                                    return (
-                                        <TouchableOpacity style={style.productCard} key={data.id} onPress={() => viewDetail(data.id)}>
-                                            <View style={style.productImage}>
-                                                <Image source={{ uri: `${data.pict_url}` }} style={style.image} />
-                                            </View>
-                                            <View style={style.text}>
-                                                <Text style={style.productName}>{data.name}</Text>
-                                                <Text style={style.price}>IDR {Number(data.price).toLocaleString()}</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    )
-                                })}
-                            </View>
-                        </ScrollView>
-                    }
+                {product.data?.length === 0 ?
+                    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                        <Text style={{ color: '#000000', fontSize: 20, textAlign: 'center' }}>Product not Found</Text>
+                    </View> :
+                    <View style={style.bottomView}>
+                        <TouchableOpacity style={style.coverSeeMore} onPress={seeMore}>
+                            <Text style={{ color: '#000000' }}>See more</Text>
+                        </TouchableOpacity>
+                        {isLoading ? <Loader.Loader isLoading={isLoading} /> :
+                            <ScrollView horizontal={true} style={style.scrollView}>
 
-                </View>
+                                <View style={style.cardCover}>
+                                    {product.data?.map((data) => {
+                                        return (
+                                            <TouchableOpacity style={style.productCard} key={data.id} onPress={() => viewDetail(data.id)}>
+                                                <View style={style.productImage}>
+                                                    <Image source={{ uri: `${data.pict_url}` }} style={style.image} />
+                                                </View>
+                                                <View style={style.text}>
+                                                    <Text style={style.productName}>{data.name}</Text>
+                                                    <Text style={style.price}>IDR {Number(data.price).toLocaleString()}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
+                                    })}
+                                </View>
+                            </ScrollView>
+                        }
+                    </View>}
                 <TouchableOpacity style={rolesId !== 2 ? { display: 'none' } : style.button} onPress={() => navigation.navigate('Add Product')}>
                     <Text style={style.textButton}>Add Product</Text>
                 </TouchableOpacity>

@@ -3,7 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Pressable, Text } from 'react-native'
+import { useNavigation, } from '@react-navigation/native'
 
 
 import getStart from './GetStarted.jsx'
@@ -34,6 +35,7 @@ import Cart from './src/screen/cart'
 const StactNavigator = () => {
     const { token, rolesId } = useSelector(state => state.userInfo)
     const { cartList } = useSelector(state => state.cart)
+    console.log(cartList);
 
 
     const { Navigator, Screen } = createStackNavigator()
@@ -104,18 +106,22 @@ const StactNavigator = () => {
                         options={{
                             headerShown: false,
                         }} />
-                    <Screen
-                        name='checkout'
-                        component={checkout}
-                        options={{
-                            headerShown: false,
-                        }} />
-                    <Screen
-                        name='payment'
-                        component={payment}
-                        options={{
-                            headerShown: false,
-                        }} />
+                    {cartList.length > 0 &&
+                        <>
+                            <Screen
+                                name='checkout'
+                                component={checkout}
+                                options={{
+                                    headerShown: false,
+                                }} />
+                            <Screen
+                                name='payment'
+                                component={payment}
+                                options={{
+                                    headerShown: false,
+                                }} />
+                        </>
+                    }
                     <Screen
                         name='category'
                         component={Category}
@@ -180,7 +186,6 @@ const TabNavigator = () => {
                                 resizeMode='contain'
                                 style={{ width: 25, height: 25, tintColor: focused ? '#6A4029' : '#ADADAF' }}
                             />
-
                         </View>
                     )
                 }
@@ -205,7 +210,7 @@ const TabNavigator = () => {
 
 const DrawerNavigator = () => {
     const Drawer = createDrawerNavigator()
-    const {  rolesId } = useSelector(state => state.userInfo)
+    const { rolesId } = useSelector(state => state.userInfo)
     const { cartList } = useSelector(state => state.cart)
     // console.log(token);
     return (
@@ -238,16 +243,17 @@ const DrawerNavigator = () => {
                     }
                 }}
             />
-             <Drawer.Screen name='Order' component={rolesId === 1 ? cartList?.length ? cart : EmptyCart : CustomerOrder}
+            {rolesId === 2 && 
+            <Drawer.Screen name='Order' component={CustomerOrder}
                 options={{
-                    
+
                     drawerIcon: () => {
                         return (
                             <Image source={require('./src/assets/icons/order.png')} style={{ width: 20, height: 16, tintColor: '#6A4029' }} />
                         )
                     }
                 }}
-            />
+            />}
         </Drawer.Navigator>
     )
 }

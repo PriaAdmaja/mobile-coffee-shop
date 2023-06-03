@@ -11,6 +11,7 @@ import navStyle from '../../styles/nav'
 import Loader from '../../components/Loader';
 import { cartAction } from '../../redux/slices/cart';
 import { deliveryStatusAction } from '../../redux/slices/deliveryStatus';
+import { userInfoAction } from '../../redux/slices/userInfo';
 
 const Payment = () => {
     const [paymentId, setPaymentId] = useState()
@@ -54,14 +55,18 @@ const Payment = () => {
                 type: 'success',
                 text1: result.data.msg
             });
-
             navigation.navigate('History')
         } catch (error) {
             // console.log(error.response.data);
             Toast.show({
                 type: 'error',
-                text1: 'error.response.data.msg'
+                text1: error.response.data.msg
             })
+            if (error.response.data.msg === 'jwt expired') {
+                setTimeout(() => {
+                    dispatch(userInfoAction.clearData())
+                }, 1000)
+            }
         } finally {
             setIsLoading(false)
         }

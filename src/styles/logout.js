@@ -27,9 +27,8 @@ const style = StyleSheet.create({
     },
     buttonWrapper: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        gap: 50,
         marginTop: 33
     },
     cancel: {
