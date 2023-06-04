@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Modal, KeyboardAvoidingView } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Modal, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
@@ -107,6 +107,7 @@ const EditProfile = () => {
                 navigation.navigate('profile')
             }, 2000)
         } catch (error) {
+            console.log(error.response);
             Toast.show({
                 type: 'error',
                 text1: error.response.data.msg
@@ -141,9 +142,10 @@ const EditProfile = () => {
                 </View>
             </View>
             <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                behavior={'height'}
+                style={{flex: 1}}
             >
-                <View>
+                <ScrollView>
                     <View style={style.inputWrap}>
                         <Text style={style.text}>Name :</Text>
                         <TextInput style={style.input} value={profile.display_name} onChangeText={(text) => changeData('display_name', text)} />
@@ -202,7 +204,7 @@ const EditProfile = () => {
                         <Text style={style.text}>Delivery Address :</Text>
                         <TextInput style={style.input} value={profile.address} onChangeText={(text) => changeData('address', text)} />
                     </View>
-                </View>
+                </ScrollView>
             </KeyboardAvoidingView>
             <DatePicker
                 modal
@@ -222,6 +224,7 @@ const EditProfile = () => {
                 {isLoading ? <Loader.ButtonLoader isLoading={isLoading} /> :
                     <Text style={style.saveText}>Save and Update</Text>}
             </TouchableOpacity>
+
             <Modal animationType='fade' visible={showModal} transparent={true}>
                 <View style={style.centeredView}>
                     <View style={style.modal}>

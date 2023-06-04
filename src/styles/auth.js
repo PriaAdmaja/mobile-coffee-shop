@@ -131,13 +131,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#9F9F9F',
-        paddingVertical: 3
+        paddingVertical: 1
     },
     inputPassword: {
         fontSize: 17,
         color: '#000000',
         width: '80%',
     },
+    passwordWarn : {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderBottomColor: '#e32929',
+        paddingVertical: 3
+    }
 })
 
 export default styles

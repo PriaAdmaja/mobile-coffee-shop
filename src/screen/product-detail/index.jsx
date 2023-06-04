@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, TextInput, Modal, Pressable } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TextInput, Modal, Pressable, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,6 +10,7 @@ import style from '../../styles/productDetail'
 import Loader from '../../components/Loader'
 import { cartAction } from '../../redux/slices/cart'
 import { Toast } from "react-native-toast-message/lib/src/Toast"
+import { userInfoAction } from '../../redux/slices/userInfo'
 
 
 const ProductDetail = () => {
@@ -99,7 +100,7 @@ const ProductDetail = () => {
             formData.append('name', data.name)
             formData.append('price', data.price)
             formData.append('description', data.description)
-            
+
             const url = `${API_URL}/products/${productId}`
             const result = await axios.patch(url, formData, {
                 headers: {
@@ -117,12 +118,17 @@ const ProductDetail = () => {
                 type: 'error',
                 text1: error.response.data.msg
             })
+            if (error.response.data.msg === 'jwt expired') {
+                setTimeout(() => {
+                    dispatch(userInfoAction.clearData())
+                }, 1000)
+            }
         } finally {
             setIsLoading(false)
         }
     }
 
-    const deleteProduct = async() => {
+    const deleteProduct = async () => {
         try {
             setIsLoading(true)
             const url = `${API_URL}/products/${productId}`
@@ -137,11 +143,16 @@ const ProductDetail = () => {
                 type: 'error',
                 text1: error.response.data.msg
             })
+            if (error.response.data.msg === 'jwt expired') {
+                setTimeout(() => {
+                    dispatch(userInfoAction.clearData())
+                }, 1000)
+            }
         } finally {
             setIsLoading(false)
         }
     }
-
+    console.log(data?.price);
     if (!data) return <Loader.Loader isLoading={true} />
 
     return (
@@ -154,33 +165,43 @@ const ProductDetail = () => {
                     <Image source={require('../../assets/icons/shopping-cart.png')} />
                 </TouchableOpacity>
             </View>
+
+
             <View style={{ flex: 1, position: 'relative' }}>
-                <View style={style.topView}>
-                    <Pressable onPress={() => edit ? setShowModal(true) : null}>
-                        <Image source={image ? { uri: image.uri } : { uri: `${data?.pict_url}` }} style={style.image} />
-                    </Pressable>
-                    {/* <Text style={style.title}>{data?.name}</Text> */}
-                    <TextInput value={data.name} editable={edit} style={edit ? style.titleEdit : style.title} onChangeText={text => editValue('name', text)} />
-                    {/* <Text style={style.price}>IDR {Number(data?.price).toLocaleString()}</Text> */}
-                    <TextInput value={`IDR ${Number(data?.price).toLocaleString()}`} editable={edit} style={edit ? style.priceEdit : style.price} onChangeText={text => editValue('price', text)} />
-                </View>
-                <View style={style.bottomView}>
-                    <View>
-                        <Text style={style.headText}>Delivery info</Text>
-                        <Text style={style.desc}>Delivered only on monday until friday from 1 pm to 7 pm</Text>
-                    </View>
-                    <View style={style.descCont}>
-                        <Text style={style.headText}>Description</Text>
-                        <TextInput value={data.description} editable={edit} multiline={true} style={edit ? style.descEdit : style.desc} onChangeText={text => editValue('description', text)} />
-                        {/* <Text style={style.desc}>{data?.description}</Text> */}
-                    </View>
-                    <TouchableOpacity style={edit ? { display: 'none' } : style.button} onPressOut={addCart}>
-                        <Text style={style.textButton}>Add to Cart</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={edit ? style.button : { display: 'none' }} onPressOut={updateProduct}>
-                        {isLoading ? <Loader.ButtonLoader isLoading={isLoading} /> :  <Text style={style.textButton}>Save Change</Text>}
-                    </TouchableOpacity>
-                </View>
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior={(Platform.OS === 'ios') ? "padding" : null}>
+                    <ScrollView>
+                        <View style={{ flex: 1 }}>
+                            <View style={style.topView}>
+                                <Pressable onPress={() => edit ? setShowModal(true) : null}>
+                                    <Image source={image ? { uri: image.uri } : data?.pict_url ? { uri: `${data?.pict_url}` } : require('../../assets/images/no-product.jpg')} style={style.image} />
+                                </Pressable>
+                                {/* <Text style={style.title}>{data?.name}</Text> */}
+                                <TextInput value={data.name} editable={edit} style={edit ? style.titleEdit : style.title} onChangeText={text => editValue('name', text)} />
+                                {/* <Text style={style.price}>IDR {Number(data?.price).toLocaleString()}</Text> */}
+                                <TextInput value={edit ? `${data.price}` : `IDR ${Number(data.price).toLocaleString()}`} editable={edit} keyboardType="numeric" style={edit ? style.priceEdit : style.price} onChangeText={text => editValue('price', text)} />
+                            </View>
+                            <View style={style.bottomView}>
+                                <View>
+                                    <Text style={style.headText}>Delivery info</Text>
+                                    <Text style={style.desc}>Delivered only on monday until friday from 1 pm to 7 pm</Text>
+                                </View>
+
+                                <View style={style.descCont}>
+                                    <Text style={style.headText}>Description</Text>
+                                    <TextInput value={data.description} editable={edit} multiline={true} style={edit ? style.descEdit : style.desc} onChangeText={text => editValue('description', text)} />
+                                    {/* <Text style={style.desc}>{data?.description}</Text> */}
+                                </View>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+                <TouchableOpacity style={edit ? { display: 'none' } : style.button} onPressOut={addCart}>
+                    <Text style={style.textButton}>Add to Cart</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={edit ? style.button : { display: 'none' }} onPressOut={updateProduct}>
+                    {isLoading ? <Loader.ButtonLoader isLoading={isLoading} /> : <Text style={style.textButton}>Save Change</Text>}
+                </TouchableOpacity>
+
                 <View style={rolesId === 2 ? { position: 'absolute', top: 0, right: 0, } : { display: 'none' }}>
                     <TouchableOpacity style={edit ? { display: 'none' } : { width: 45, height: 45, justifyContent: 'center', alignItems: 'center' }} onPress={() => setEdit(true)}>
                         <Image source={require('../../assets/icons/pen.png')} style={{ tintColor: '#6A4029', width: 18, height: 18 }} />

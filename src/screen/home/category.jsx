@@ -17,6 +17,7 @@ const Category = () => {
     const [showFilter, setShowFIlter] = useState(false)
     const [page, setPage] = useState(1)
     const [product, setProduct] = useState([])
+    const [meta, setMeta] = useState()
     const [sortMdl, setSortMdl] = useState(sort)
     const [search, setSearch] = useState()
     const [categoryMdl, setCategoryMdl] = useState(category)
@@ -49,7 +50,8 @@ const Category = () => {
             }
             console.log(url);
             const result = await axios.get(url)
-            setProduct(result.data.data)
+            setMeta(result.data?.meta.next);
+            setProduct(result.data?.data)
         } catch (error) {
             console.log(error);
         } finally {
@@ -62,13 +64,15 @@ const Category = () => {
         setCategoryMdl(null)
         setSortMdl(null)
         setPage(1)
+        setSearch('')
         dispatch(filterAction.resetFilter())
         setShowFIlter(false)
         try {
             setIsLoading(true)
             let url = `${API_URL}/products?page=1`
             const result = await axios.get(url)
-            setProduct(result.data.data)
+            setProduct(result.data?.data)
+            setMeta(result.data?.meta.next)
         } catch (error) {
             console.log(error);
         } finally {
@@ -76,32 +80,21 @@ const Category = () => {
         }
     }
 
-    // const nextPage = async () => {
-    //     setPage(prev => prev + 1)
-    //     let currentPage = page + 1
-    //     try {
-    //         let url = `${API_URL}/products`
-    //         const query = []
-    //         if(categoryMdl) {
-    //             query.push(`category=${categoryMdl}`)
-    //         }
-    //         if(sortMdl) {
-    //             query.push(`sortBy=${sortMdl}`)
-    //         }
-    //         if(page) {
-    //             query.push(`page=${page}`)
-    //         }
-    //         if(query.length > 0) {
-    //             url += `?${query.join('&')}`
-    //         }
-    //         const result = await axios.get(url)
-    //         const prevData = [...product]
-    //         const newData = prevData.concat(result.data.data)
-    //         setProduct(newData)
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    const nextPage = async () => {
+        try {
+            if(!meta) {
+                return
+            }
+            let url = `${API_URL}${meta}`
+            const result = await axios.get(url)
+            setMeta(result.data?.meta.next)
+            const prevData = [...product]
+            const newData = prevData.concat(result.data?.data)
+            setProduct(newData)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         let getData = true
@@ -119,12 +112,16 @@ const Category = () => {
                 query.push(`sortBy=${sort}`)
             }
             if(page) {
-                query.push(`page=${page}`)
+                query.push(`limit=10&page=${page}`)
             }
             if(query.length > 0) {
                 url += `?${query.join('&')}`
             }
-            axios.get(url).then(res => setProduct(res.data.data)).catch(err => console.log(err.response.data.msg)).finally(() => setIsLoading(false))
+            console.log(url);
+            axios.get(url).then(res => {
+                setMeta(res.data?.meta.next);
+                setProduct(res.data?.data)
+            }).catch(err => console.log(err.response.data.msg)).finally(() => setIsLoading(false))
         }
         return () => { getData = false }
     }, [search])
@@ -146,7 +143,7 @@ const Category = () => {
             <Text style={style.title}>{title}</Text>
             <View style={style.searchBar}>
                             <Image style={style.searchIcon} source={require('../../assets/icons/search.png')} />
-                            <TextInput placeholder='Search' placeholderTextColor={'#000000'} onChangeText={text => setSearch(text)} style={{ color: '#000000' }} />
+                            <TextInput placeholder='Search' value={search} placeholderTextColor={'#000000'} onChangeText={text => setSearch(text)} style={{ color: '#000000' }} />
                         </View>
             <TouchableOpacity style={style.filterBtn} onPress={() => setShowFIlter(true)}>
                 <Text style={style.filterText}>Filter</Text>
@@ -160,13 +157,13 @@ const Category = () => {
                     data={product}
                     numColumns={2}
                     columnWrapperStyle={style.flatList}
-                    // onEndReachedThreshold={2}
-                    // onEndReached={nextPage}
+                    onEndReachedThreshold={2}
+                    onEndReached={nextPage}
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity style={style.productCard} key={item.id} onPress={() => viewDetail(item.id)}>
                                 <View style={style.productImage}>
-                                    <Image source={{ uri: `${item.pict_url}` }} style={style.image} />
+                                    <Image source={item.pict_url ?  { uri: `${item.pict_url}` } : require('../../assets/images/no-product.jpg')} style={style.image} />
                                 </View>
                                 <View style={style.text}>
                                     <Text style={style.productName}>{item.name}</Text>

@@ -37,7 +37,8 @@ const style = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#C4C4C4',
         textAlign: 'center',
-        width: '90%'
+        width: '90%',
+        color: '#000000',
     },
     subTitle: {
         fontWeight: '900',
@@ -47,7 +48,8 @@ const style = StyleSheet.create({
     inputOutside: {
         borderBottomColor: '#C4C4C4',
         borderBottomWidth: 1,
-        marginBottom: 20
+        marginBottom: 20,
+        color: '#000000'
     },
     button: {
         backgroundColor: '#6A4029',

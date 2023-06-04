@@ -116,7 +116,7 @@ const Home = () => {
                                         return (
                                             <TouchableOpacity style={style.productCard} key={data.id} onPress={() => viewDetail(data.id)}>
                                                 <View style={style.productImage}>
-                                                    <Image source={{ uri: `${data.pict_url}` }} style={style.image} />
+                                                    <Image source={data.pict_url ? { uri: `${data.pict_url}` } : require('../../assets/images/no-product.jpg')} style={style.image} />
                                                 </View>
                                                 <View style={style.text}>
                                                     <Text style={style.productName}>{data.name}</Text>

@@ -119,11 +119,11 @@ const AddProduct = () => {
                     <TouchableOpacity style={style.addPictBtn} onPress={() => setShowModal(true)}>
                         <Text style={style.addPictText}>Add pictures</Text>
                     </TouchableOpacity>
-                    <TextInput placeholder='Type product name' value={name} style={style.inputInside} onChangeText={text => setName(text)} />
-                    <TextInput placeholder='Type product price' value={price} keyboardType="numeric" style={style.inputInside} onChangeText={text => setPrice(text)} />
+                    <TextInput placeholder='Type product name' placeholderTextColor={`#8a8a8a`} value={name} style={style.inputInside} onChangeText={text => setName(text)} />
+                    <TextInput placeholder='Type product price' placeholderTextColor={`#8a8a8a`} value={price} keyboardType="numeric" style={style.inputInside} onChangeText={text => setPrice(text)} />
                 </View>
                 <Text style={style.subTitle}>Description</Text>
-                <TextInput placeholder='Describe your product' value={description} style={style.inputOutside} onChangeText={text => setDescription(text)} />
+                <TextInput placeholder='Describe your product' placeholderTextColor={`#8a8a8a`} value={description} style={style.inputOutside} onChangeText={text => setDescription(text)} />
                 <Text style={style.subTitle}>Category</Text>
                 <View style={style.categoryWrap}>
                     <TouchableOpacity style={style.choiceWrap} onPress={() => setCategoryId(1)}>
