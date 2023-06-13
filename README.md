@@ -56,11 +56,17 @@ You can download APK file [here](https://drive.google.com/drive/folders/16PiUqnp
 
 ## Screenshots
 
+<<<<<<< HEAD
 ![Dashboard](https://user-images.githubusercontent.com/109842306/245359211-9b34755a-03b3-4235-adcc-05883f85c6e9.jpg)
 
 ![Edit Profile](https://user-images.githubusercontent.com/109842306/245359240-34182535-7b88-4136-b8d5-84e9498178c3.jpg)
 
 
+=======
+![Dashboard](https://user-images.githubusercontent.com/109842306/244989832-de866c76-1882-4352-bba3-3f0dc79c0fd1.jpg)
+
+
+>>>>>>> 5900aa62b4d4f2fea85ec197c5632ea7eddc656a
 ## Authors
 
 - [PriaAdmaja](https://github.com/PriaAdmaja)
